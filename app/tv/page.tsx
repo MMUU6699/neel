@@ -18,11 +18,13 @@ export default function TvCodePage() {
     return <div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>;
   }
 
-  if (!session) {
+  if (!session?.user?.id) {
     // Redirect to login if they are not logged in themselves
     router.push("/login?callbackUrl=/tv");
     return null;
   }
+
+  const userId = session.user.id;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ export default function TvCodePage() {
         body: JSON.stringify({
           action: "authorize",
           userCode: code.toUpperCase(),
-          userId: session.user.id,
+          userId,
         }),
       });
 

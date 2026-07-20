@@ -9,9 +9,13 @@ import { cache } from "react";
 const TMDB_API_KEY = process.env.TMDB_API_KEY ?? "";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
-const tmdbHeaders = TMDB_API_KEY
-  ? { Authorization: `Bearer ${TMDB_API_KEY}`, "Content-Type": "application/json" }
-  : { "Content-Type": "application/json" };
+const tmdbHeaders = new Headers({
+  "Content-Type": "application/json",
+});
+
+if (TMDB_API_KEY) {
+  tmdbHeaders.set("Authorization", `Bearer ${TMDB_API_KEY}`);
+}
 
 type ReleaseDatesAppend = {
   release_dates?: {

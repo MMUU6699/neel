@@ -63,7 +63,7 @@ export async function getLocale(): Promise<string> {
       if (lang.startsWith("en")) return "en";
       return null;
     })
-    .find((locale): locale is string => locale !== null);
+    .find((locale): locale is "en" | "ar" => locale === "en" || locale === "ar");
 
   const resolved = accepted ?? "en";
   console.log("[locale] resolved:", resolved);

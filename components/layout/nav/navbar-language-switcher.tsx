@@ -31,7 +31,7 @@ export function NavbarLanguageSwitcher({ locale }: { locale: string }) {
       {locales.map((item) => (
         <Button
           key={item.code}
-          variant={item.code === locale ? "solid" : "ghost"}
+          variant={item.code === locale ? "default" : "ghost"}
           size="icon"
           className="min-w-[2.5rem]"
           aria-label={`Switch language to ${item.label}`}
