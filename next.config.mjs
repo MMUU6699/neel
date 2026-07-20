@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Use an explicit ASSET_PREFIX environment variable in production when you
+  // host assets on an external CDN. If ASSET_PREFIX is not set, leave
+  // `assetPrefix` undefined so Next.js serves static assets from the same
+  // origin (prevents ERR_NAME_NOT_RESOLVED when a placeholder domain is left).
   assetPrefix:
     process.env.NODE_ENV === "production"
-      ? "https://cdn.REPLACE_WITH_YOUR_DOMAIN.com"
+      ? process.env.ASSET_PREFIX || undefined
       : undefined,
   output: "standalone",
   outputFileTracingIncludes: {
