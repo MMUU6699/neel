@@ -11,11 +11,16 @@ import { GlobalDockProvider } from "@/components/layout/dock/global-dock";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryProvider } from "@/lib/query-client";
+import { WebOSProvider } from "@/components/providers/webos-provider";
 import { cn, validateEnv } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { I18nProvider } from "@/app/i18n/provider";
+import { getLocale } from "@/i18n/request";
+import { readFileSync } from "fs";
+import path from "path";
 import {
   DEFAULT_DESCRIPTION,
   SITE_NAME,
@@ -99,6 +104,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   const session = await auth();
   const host = (await headers()).get("host");
   const ffsAdminHost = isFfsHost(host);
@@ -111,7 +117,7 @@ export default async function RootLayout({
 
   const chrome = ffsAdminHost ? (
     <>
-      <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+      <main className="flex min-h-0 flex-1 flex-col tv-safe-area">{children}</main>
       <Toaster richColors closeButton />
     </>
   ) : (
@@ -119,16 +125,19 @@ export default async function RootLayout({
       <AppSettingsSync />
       <GlobalDockProvider>
         <NavbarClient session={session} />
-        <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+        <main className="flex min-h-0 flex-1 flex-col tv-safe-area">{children}</main>
         <FooterSection />
         <Toaster richColors closeButton />
       </GlobalDockProvider>
     </>
   );
 
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={dir}
       className={cn(manrope.variable, "dark")}
       suppressHydrationWarning
     >
@@ -163,19 +172,30 @@ export default async function RootLayout({
         )}
       </head>
       <body className={cn("flex min-h-dvh flex-col bg-background font-sans")}>
-        <JsonLdScript data={buildWebsiteStructuredData()} />
-        <RouteScrollReset />
-        <QueryProvider>
-          <FeatureFlagsProvider flags={siteFlags}>
-            <AuthSessionProvider session={session}>
-              <OnboardingProvider>
-                <TooltipProvider>
-                  <AdblockGateProvider>{chrome}</AdblockGateProvider>
-                </TooltipProvider>
-              </OnboardingProvider>
-            </AuthSessionProvider>
-          </FeatureFlagsProvider>
-        </QueryProvider>
+        <WebOSProvider>
+          <JsonLdScript data={buildWebsiteStructuredData()} />
+          <RouteScrollReset />
+          <QueryProvider>
+            <FeatureFlagsProvider flags={siteFlags}>
+              <AuthSessionProvider session={session}>
+                <OnboardingProvider>
+                  <TooltipProvider>
+                    <AdblockGateProvider>
+                      <I18nProvider locale={locale} messages={JSON.parse(
+                        readFileSync(
+                          path.join(process.cwd(), "app", "messages", `${locale}.json`),
+                          "utf-8",
+                        ),
+                      )}>
+                        {chrome}
+                      </I18nProvider>
+                    </AdblockGateProvider>
+                  </TooltipProvider>
+                </OnboardingProvider>
+              </AuthSessionProvider>
+            </FeatureFlagsProvider>
+          </QueryProvider>
+        </WebOSProvider>
       </body>
     </html>
   );

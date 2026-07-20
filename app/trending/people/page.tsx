@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildCatalogMetadata({
     title: pages.trending.people.title,
     description:
-      "Browse trending actors, directors, and creators on NyumatFlix.",
+      "Browse trending actors, directors, and creators on Index.",
     path: pages.trending.people.link,
   });
 }

@@ -10,7 +10,7 @@ import { WatchlistClient } from "./watchlist-client";
 import { WatchlistContent } from "./watchlist-content";
 
 export const metadata: Metadata = {
-  title: "My Watchlist | NyumatFlix",
+  title: "My Watchlist | Index",
   description: "Manage your watchlist and track your viewing progress",
 };
 

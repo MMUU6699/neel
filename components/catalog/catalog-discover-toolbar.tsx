@@ -10,6 +10,22 @@ import { X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
+const getClientLocale = (): string => {
+  try {
+    if (typeof document !== "undefined") {
+      const match = document.cookie
+        .split(";")
+        .map((s) => s.trim())
+        .find((s) => s.startsWith("NEXT_LOCALE="));
+      if (match) return match.split("=")[1];
+    }
+    if (typeof navigator !== "undefined") return (navigator.language || "en").split("-")[0];
+  } catch (e) {
+    /* ignore */
+  }
+  return "en";
+};
+
 type CatalogDiscoverToolbarProps = {
   mediaType: "movie" | "tv";
   genres: Genre[];
@@ -29,7 +45,7 @@ const formatResultsCount = (count: number, mediaType: "movie" | "tv") => {
     mediaType === "movie"
       ? pluralize(count, "movie", "movies")
       : pluralize(count, "TV show", "TV shows");
-  return `${count.toLocaleString()} ${label} found`;
+  return `${count.toLocaleString(getClientLocale(), { numberingSystem: "latn" })} ${label} found`;
 };
 
 type FilterChip = {

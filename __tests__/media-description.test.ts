@@ -7,7 +7,7 @@ describe("buildMediaDescription", () => {
       tagline: "Mischief. Mayhem. Soap.",
       overview:
         "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy.",
-      fallback: "Watch Fight Club on NyumatFlix",
+      fallback: "Watch Fight Club on Index",
     });
 
     expect(result).toBe("Mischief. Mayhem. Soap.");
@@ -39,7 +39,7 @@ describe("buildMediaDescription", () => {
   it("uses overview when no tagline exists", () => {
     const result = buildMediaDescription({
       overview: "Seven noble families fight for control of Westeros.",
-      fallback: "Watch Game of Thrones on NyumatFlix",
+      fallback: "Watch Game of Thrones on Index",
     });
 
     expect(result).toBe("Seven noble families fight for control of Westeros.");

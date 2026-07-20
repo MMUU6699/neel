@@ -6,6 +6,13 @@ import { LogoSchema, type MediaItem } from "@/lib/domain/typings";
 import { tmdbFetchInit } from "@/lib/tmdb-cache-policy";
 import { cache } from "react";
 
+const TMDB_API_KEY = process.env.TMDB_API_KEY ?? "";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+
+const tmdbHeaders = TMDB_API_KEY
+  ? { Authorization: `Bearer ${TMDB_API_KEY}`, "Content-Type": "application/json" }
+  : { "Content-Type": "application/json" };
+
 type ReleaseDatesAppend = {
   release_dates?: {
     results?: Array<{
@@ -56,20 +63,30 @@ const movieDetailFetchInit = (id: string, append: string) =>
 export const getCachedMovieDetail = cache(
   async (id: string): Promise<MediaItem | null> => {
     try {
-      const baseUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`;
+      const baseUrl = `${TMDB_BASE_URL}/movie/${id}`;
+      const url = new URL(baseUrl);
+
+      // Resolve locale and set TMDB language param if not present
+      try {
+        const { getLocale } = await import("@/i18n/request");
+        const locale = await getLocale();
+        url.searchParams.set("language", locale === "ar" ? "ar" : "en");
+      } catch (e) {
+        url.searchParams.set("language", "en");
+      }
 
       const [res1, res2, res3] = await Promise.all([
         fetch(
-          `${baseUrl}&append_to_response=keywords,external_ids,release_dates`,
-          movieDetailFetchInit(id, "keywords,external_ids,release_dates"),
+          `${url.toString()}&append_to_response=keywords,external_ids,release_dates`,
+          { ...movieDetailFetchInit(id, "keywords,external_ids,release_dates"), headers: tmdbHeaders },
         ),
         fetch(
-          `${baseUrl}&append_to_response=videos,images`,
-          movieDetailFetchInit(id, "videos,images"),
+          `${url.toString()}&append_to_response=videos,images`,
+          { ...movieDetailFetchInit(id, "videos,images"), headers: tmdbHeaders },
         ),
         fetch(
-          `${baseUrl}&append_to_response=recommendations,similar,reviews`,
-          movieDetailFetchInit(id, "recommendations,similar,reviews"),
+          `${url.toString()}&append_to_response=recommendations,similar,reviews`,
+          { ...movieDetailFetchInit(id, "recommendations,similar,reviews"), headers: tmdbHeaders },
         ),
       ]);
 

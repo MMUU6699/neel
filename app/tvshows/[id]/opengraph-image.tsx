@@ -8,7 +8,7 @@ import {
 } from "@/lib/seo/og-image";
 import { renderCachedOgImage } from "@/lib/seo/og-render";
 
-export const alt = "TV show on NyumatFlix";
+export const alt = "TV show on Index";
 export const size = OG_IMAGE_SIZE;
 export const contentType = ogImageContentType;
 export const revalidate = 86400; // OG_IMAGE_REVALIDATE_SECONDS

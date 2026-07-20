@@ -1,14 +1,14 @@
-![NyumatFlix](/preview.png)
+![Index](/preview.png)
 
 <div align="center">
-  <h3 style="font-size: 3rem; font-weight: 600;"><a href="https://nyumatflix.com">NyumatFlix</a></h3>
+  <h3 style="font-size: 3rem; font-weight: 600;"><a href="https://REPLACE_WITH_YOUR_DOMAIN.com">Index</a></h3>
   <p><em>Yet another Anilist and TMDB metadata aggregator.</em></p>
 </div>
 
 
 
 
-<!-- NyumatFlix is a platform for streaming movies and TV shows. It is a open-source, no-cost, and ad-free movie and tv show stream aggregator. Streams are curated from some of the most popular API providers.
+<!-- Index is a platform for streaming movies and TV shows. It is a open-source, no-cost, and ad-free movie and tv show stream aggregator. Streams are curated from some of the most popular API providers.
 
 ## ⚡️ Tech Stack
 
@@ -25,7 +25,7 @@
 - [TMDb API](https://www.themoviedb.org/documentation/api)
 - [Biome](https://biomejs.dev/) -->
 
-## 🏃🏾‍♂️ Run NyumatFlix Locally
+## 🏃🏾‍♂️ Run Index Locally
 
 > [!IMPORTANT]
 > Prerequisites:
@@ -40,8 +40,8 @@ To run the project on your machine, follow the steps below:
 1. Clone or fork the repository
 
 ```bash
-git clone git@github.com:Nyumat/NyumatFlix.git
-cd NyumatFlix
+git clone git@github.com:Nyumat/Index.git
+cd Index
 ```
 
 2. Next, create a `.env.local` file in the root directory of the project and add the following environment variables:
@@ -100,7 +100,7 @@ bun run dev
 
 <!-- ## Production infrastructure
 
-Production uses one idempotent reconciler for Gluetun, FlareSolverr, and Flipt. The regular application deploy syncs the desired Compose files, runs the reconciler on the VPS, verifies the services over the Docker network, and then performs the blue-green NyumatFlix rollout.
+Production uses one idempotent reconciler for Gluetun, FlareSolverr, and Flipt. The regular application deploy syncs the desired Compose files, runs the reconciler on the VPS, verifies the services over the Docker network, and then performs the blue-green Index rollout.
 
 For first-time VPN provisioning from a workstation, populate the gitignored `.env.vpn` file and run:
 
@@ -144,14 +144,14 @@ APP_PORT=3001 docker compose --env-file .env up --build
 For production, build and publish the image without secrets:
 
 ```bash
-docker build -t registry.example.com/nyumatflix:latest .
+docker build -t registry.example.com/index:latest .
 ```
 
 Then inject runtime variables through your host or platform. For plain Docker Compose on a VPS, keep the real env file outside git and pass it explicitly:
 
 ```bash
 docker compose \
-  --env-file /etc/nyumatflix/env \
+  --env-file /etc/index/env \
   up -d
 ```
 

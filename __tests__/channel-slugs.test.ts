@@ -41,7 +41,7 @@ describe("channel slugs", () => {
 
     expect(getChannelShareSlug(hidive)).toBe("hidive");
     expect(buildLiveShareUrlFromSlug("hidive")).toBe(
-      "https://nyumatflix.com/live?ch=hidive",
+      "https://REPLACE_WITH_YOUR_DOMAIN.com/live?ch=hidive",
     );
     expect(resolveChannelFromSlug("hidive", [hidive])?.name).toBe(
       "ANIME x HIDIVE",
@@ -57,10 +57,10 @@ describe("channel slugs", () => {
 
   it("builds share urls with channel slug", () => {
     expect(buildLiveChannelShareUrl(channel({ name: "ESPN" }))).toBe(
-      "https://nyumatflix.com/live?ch=espn",
+      "https://REPLACE_WITH_YOUR_DOMAIN.com/live?ch=espn",
     );
     expect(buildLiveChannelShareUrl(channel({ name: "Cartoon Network" }))).toBe(
-      "https://nyumatflix.com/live?ch=cn",
+      "https://REPLACE_WITH_YOUR_DOMAIN.com/live?ch=cn",
     );
   });
 
@@ -82,7 +82,7 @@ describe("channel slugs", () => {
     expect(formatChannelSlugForDisplay("cn")).toBe("Cartoon Network");
     expect(formatChannelSlugForDisplay("espn")).toBe("ESPN");
     expect(buildLiveShareUrlFromSlug("cartoon-network")).toBe(
-      "https://nyumatflix.com/live?ch=cn",
+      "https://REPLACE_WITH_YOUR_DOMAIN.com/live?ch=cn",
     );
   });
 

@@ -84,7 +84,13 @@ export async function GET(request: NextRequest) {
     url.searchParams.append("query", query);
     url.searchParams.append("page", page);
     url.searchParams.append("include_adult", "false");
-    url.searchParams.append("language", "en-US");
+    try {
+      const { getLocale } = await import("@/i18n/request");
+      const locale = await getLocale();
+      url.searchParams.append("language", locale === "ar" ? "ar" : "en");
+    } catch {
+      url.searchParams.append("language", "en");
+    }
 
     const response = await fetch(url.toString());
 

@@ -1,5 +1,5 @@
 [Unit]
-Description=Check NyumatFlix container health every minute
+Description=Check Index container health every minute
 
 [Timer]
 OnBootSec=2min

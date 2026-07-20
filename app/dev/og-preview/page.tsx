@@ -148,6 +148,6 @@ export default async function OgPreviewIndexPage() {
 
 export const metadata = buildCatalogMetadata({
   title: "OG Preview",
-  description: "Development preview for NyumatFlix social share images.",
+  description: "Development preview for Index social share images.",
   path: "/dev/og-preview",
 });

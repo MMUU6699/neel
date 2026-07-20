@@ -1,4 +1,4 @@
-export const PLAYBACK_PROGRESS_STORAGE_KEY = "nyumatflix.playback.progress";
+export const PLAYBACK_PROGRESS_STORAGE_KEY = "index.playback.progress";
 
 export type PlaybackMediaType = "movie" | "tv";
 

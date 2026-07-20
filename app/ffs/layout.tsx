@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "FFS Admin | NyumatFlix",
+  title: "FFS Admin | Index",
   robots: { index: false, follow: false },
 };
 

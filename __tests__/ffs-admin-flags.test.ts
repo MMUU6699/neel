@@ -23,9 +23,9 @@ describe("ffs admin flags", () => {
   });
 
   it("detects ffs hostnames", () => {
-    expect(isFfsHost("ffs.nyumatflix.com")).toBe(true);
+    expect(isFfsHost("ffs.REPLACE_WITH_YOUR_DOMAIN.com")).toBe(true);
     expect(isFfsHost("ffs.localhost:3000")).toBe(true);
-    expect(isFfsHost("nyumatflix.com")).toBe(false);
+    expect(isFfsHost("REPLACE_WITH_YOUR_DOMAIN.com")).toBe(false);
     expect(
       assertFfsHost(
         new NextRequest("http://ffs.localhost/ffs", {

@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
-# Reconcile NyumatFlix's long-lived production dependencies on the VPS.
+# Reconcile Index's long-lived production dependencies on the VPS.
 # Usage: reconcile-prod-infra.sh ensure | update | status
 
 set -euo pipefail
 umask 077
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [[ -n "${NYUMATFLIX_ROOT:-}" ]]; then
-  ROOT="$NYUMATFLIX_ROOT"
+if [[ -n "${INDEX_ROOT:-}" ]]; then
+  ROOT="$INDEX_ROOT"
 else
   ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 fi
 
 DOCKER_NETWORK="${DOCKER_NETWORK:-betterome}"
 SCRAPE_PROJECT="${SCRAPE_PROJECT:-gluetun}"
-FLIPT_PROJECT="${FLIPT_PROJECT:-nyumatflix}"
+FLIPT_PROJECT="${FLIPT_PROJECT:-index}"
 GLUETUN_ENV_FILE="${GLUETUN_ENV_FILE:-$HOME/apps/gluetun/.env}"
 GLUETUN_SEED_ENV_FILE="${GLUETUN_SEED_ENV_FILE:-$HOME/apps/gluetun/.env.seed}"
-APP_ENV_FILE="${APP_ENV_FILE:-$HOME/apps/nyumatflix/.env}"
+APP_ENV_FILE="${APP_ENV_FILE:-$HOME/apps/index/.env}"
 SCRAPE_COMPOSE_FILE="${SCRAPE_COMPOSE_FILE:-$ROOT/docker-compose.scrape.yml}"
 FLIPT_COMPOSE_FILE="${FLIPT_COMPOSE_FILE:-$ROOT/docker-compose.ffs.yml}"
 LOCK_FILE="${INFRA_LOCK_FILE:-$ROOT/.prod-infra.lock}"

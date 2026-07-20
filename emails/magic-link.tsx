@@ -19,7 +19,7 @@ interface MagicLinkEmailProps {
 export const MagicLinkEmail = ({ url, host: _host }: MagicLinkEmailProps) => {
   const logoSrc =
     process.env.NODE_ENV === "production"
-      ? "https://nyumatflix.com/logo.webp"
+      ? "https://REPLACE_WITH_YOUR_DOMAIN.com/logo.webp"
       : "/static/logo.webp";
 
   return (
@@ -33,7 +33,7 @@ export const MagicLinkEmail = ({ url, host: _host }: MagicLinkEmailProps) => {
               src={logoSrc}
               width="48"
               height="48"
-              alt="Nyumatflix"
+              alt="Index"
               style={logo}
             />
           </Section>
@@ -56,8 +56,8 @@ export const MagicLinkEmail = ({ url, host: _host }: MagicLinkEmailProps) => {
             <Text style={signature}>Cheers,</Text>
             <Text style={signature}>
               - The{" "}
-              <Link href="https://nyumatflix.com" style={link}>
-                nyumatflix.com
+              <Link href="https://REPLACE_WITH_YOUR_DOMAIN.com" style={link}>
+                REPLACE_WITH_YOUR_DOMAIN.com
               </Link>{" "}
               team
             </Text>
@@ -68,7 +68,7 @@ export const MagicLinkEmail = ({ url, host: _host }: MagicLinkEmailProps) => {
               src={logoSrc}
               width="24"
               height="24"
-              alt="Nyumatflix"
+              alt="Index"
               style={footerLogo}
             />
             <Text style={footer}>

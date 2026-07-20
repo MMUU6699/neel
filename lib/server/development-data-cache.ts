@@ -78,15 +78,15 @@ export class AsyncExpiringLruCache {
 }
 
 type DevelopmentCacheGlobal = typeof globalThis & {
-  __nyumatflixDevelopmentDataCache?: AsyncExpiringLruCache;
+  __indexDevelopmentDataCache?: AsyncExpiringLruCache;
 };
 
 const getDevelopmentDataCache = () => {
   const globalStore = globalThis as DevelopmentCacheGlobal;
-  globalStore.__nyumatflixDevelopmentDataCache ??= new AsyncExpiringLruCache(
+  globalStore.__indexDevelopmentDataCache ??= new AsyncExpiringLruCache(
     DEVELOPMENT_DATA_CACHE_MAX_ENTRIES,
   );
-  return globalStore.__nyumatflixDevelopmentDataCache;
+  return globalStore.__indexDevelopmentDataCache;
 };
 
 export const withDevelopmentDataCache = <T>(

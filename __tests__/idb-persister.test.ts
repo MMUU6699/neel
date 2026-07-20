@@ -47,7 +47,7 @@ describe("createIDBPersister", () => {
 
     await persister.persistClient(mockClient);
 
-    expect(mockSet).toHaveBeenCalledWith("nyumatflix-query-cache", mockClient);
+    expect(mockSet).toHaveBeenCalledWith("index-query-cache", mockClient);
     expect(mockSet).toHaveBeenCalledTimes(1);
   });
 
@@ -65,7 +65,7 @@ describe("createIDBPersister", () => {
     const persister = createIDBPersister();
     const result = await persister.restoreClient();
 
-    expect(mockGet).toHaveBeenCalledWith("nyumatflix-query-cache");
+    expect(mockGet).toHaveBeenCalledWith("index-query-cache");
     expect(mockGet).toHaveBeenCalledTimes(1);
     expect(result).toEqual(mockClient);
   });
@@ -76,7 +76,7 @@ describe("createIDBPersister", () => {
     const persister = createIDBPersister();
     const result = await persister.restoreClient();
 
-    expect(mockGet).toHaveBeenCalledWith("nyumatflix-query-cache");
+    expect(mockGet).toHaveBeenCalledWith("index-query-cache");
     expect(result).toBeUndefined();
   });
 
@@ -85,7 +85,7 @@ describe("createIDBPersister", () => {
 
     await persister.removeClient();
 
-    expect(mockDel).toHaveBeenCalledWith("nyumatflix-query-cache");
+    expect(mockDel).toHaveBeenCalledWith("index-query-cache");
     expect(mockDel).toHaveBeenCalledTimes(1);
   });
 

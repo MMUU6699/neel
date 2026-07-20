@@ -27,7 +27,7 @@ const showOnboardingSkipToast = () => {
               Skipped for now
             </p>
             <p className="mt-1 text-sm leading-5 text-zinc-400">
-              The next time you open NyumatFlix, we'll ask you again.
+              The next time you open Index, we'll ask you again.
             </p>
           </div>
           <button
@@ -76,7 +76,7 @@ export const OnboardingDialog = ({
               <div className="flex size-11 items-center justify-center rounded-xl bg-white/8">
                 <Image
                   src="/logo.svg"
-                  alt="NyumatFlix"
+                  alt="Index"
                   width={30}
                   height={30}
                   className="size-[30px]"
@@ -85,7 +85,7 @@ export const OnboardingDialog = ({
             </div>
             <div className="mx-auto max-w-sm space-y-3">
               <DialogTitle className="text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl">
-                Welcome to NyumatFlix
+                Welcome to Index
               </DialogTitle>
             </div>
           </DialogHeader>
@@ -102,7 +102,7 @@ export const OnboardingDialog = ({
 
             try {
               await handleSubmit(e, () => {
-                toast.success("Welcome to NyumatFlix!");
+                toast.success("Welcome to Index!");
                 completeAndRedirect();
               });
             } catch (error) {

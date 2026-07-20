@@ -6,10 +6,11 @@ import { SiteNavDesktop } from "@/components/layout/site-nav-desktop";
 import { AnniversaryBanner } from "@/components/layout/anniversary-banner";
 import { NavbarSearchClient, SearchDialog } from "@/components/search/search";
 import { Button } from "@/components/ui/button";
+import { useLocale } from "next-intl";
 import { useDetailRouteParentOverride } from "@/lib/stores/detail-route-store";
 import { cn } from "@/lib/utils";
 import { prepareNavigationBack } from "@/lib/navigation/route-restoration";
-import { ChevronLeft, Search, UserRound } from "lucide-react";
+import { ChevronLeft, Globe, Search, UserRound } from "lucide-react";
 import Link from "next/link";
 import type { Session } from "next-auth";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,6 +22,7 @@ import {
   navbarActionIconClassName,
 } from "./navbar-action-button";
 import { NavbarAuth } from "./navbar-auth";
+import { NavbarLanguageSwitcher } from "./navbar-language-switcher";
 import { NavbarMobileNavigation } from "./navbar-mobile-navigation";
 import { UserAvatar } from "./user-avatar";
 
@@ -69,6 +71,7 @@ export const NavbarClient = ({ session }: NavbarClientProps) => {
   };
 
   const pathname = usePathname();
+  const locale = useLocale();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const detailRouteConfig = getDetailRouteConfig(pathname);
   const parentRouteOverride = useDetailRouteParentOverride(pathname);
@@ -123,6 +126,8 @@ export const NavbarClient = ({ session }: NavbarClientProps) => {
           <Suspense fallback={null}>
             <SearchDialog open={isSearchOpen} onOpenChange={setIsSearchOpen} />
           </Suspense>
+
+          <NavbarLanguageSwitcher locale={locale} />
 
           <div className="hidden md:flex">
             <NavbarAuth session={session} />

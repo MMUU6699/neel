@@ -1,6 +1,7 @@
 import "server-only";
 
 import { unstable_cache } from "next/cache";
+import { getLocale } from "@/i18n/request";
 
 const TMDB_BASE = "https://api.themoviedb.org/3";
 const OG_TMDB_REVALIDATE_SECONDS = 86400;
@@ -33,8 +34,15 @@ async function tmdbOgFetch<T>(path: string): Promise<T | null> {
   if (!apiKey) return null;
 
   try {
-    const url = `${TMDB_BASE}${path}?api_key=${apiKey}&language=en-US`;
-    const response = await fetch(url, {
+    const url = new URL(`${TMDB_BASE}${path}`);
+    try {
+      const locale = await getLocale();
+      url.searchParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch {
+      url.searchParams.set("language", "en");
+    }
+    url.searchParams.set("api_key", apiKey);
+    const response = await fetch(url.toString(), {
       next: { revalidate: OG_TMDB_REVALIDATE_SECONDS },
     });
     if (!response.ok) return null;
@@ -66,8 +74,15 @@ const fetchOgPersonCastCreditsUncached = async (
   if (!apiKey) return [];
 
   try {
-    const url = `${TMDB_BASE}/person/${personId}/combined_credits?api_key=${apiKey}&language=en-US`;
-    const response = await fetch(url, {
+    const url = new URL(`${TMDB_BASE}/person/${personId}/combined_credits`);
+    try {
+      const locale = await getLocale();
+      url.searchParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch {
+      url.searchParams.set("language", "en");
+    }
+    url.searchParams.set("api_key", apiKey);
+    const response = await fetch(url.toString(), {
       next: { revalidate: OG_TMDB_REVALIDATE_SECONDS },
     });
     if (!response.ok) return [];

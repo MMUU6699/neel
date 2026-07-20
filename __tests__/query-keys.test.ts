@@ -4,18 +4,18 @@ import { describe, expect, test } from "vitest";
 describe("queryKeys", () => {
   describe("base keys", () => {
     test("all returns base key array", () => {
-      expect(queryKeys.all).toEqual(["nyumatflix"]);
+      expect(queryKeys.all).toEqual(["index"]);
     });
   });
 
   describe("search keys", () => {
     test("search returns base search key", () => {
-      expect(queryKeys.search()).toEqual(["nyumatflix", "search"]);
+      expect(queryKeys.search()).toEqual(["index", "search"]);
     });
 
     test("searchPreview returns key with query", () => {
       expect(queryKeys.searchPreview("batman")).toEqual([
-        "nyumatflix",
+        "index",
         "search",
         "preview",
         "batman",
@@ -24,7 +24,7 @@ describe("queryKeys", () => {
 
     test("searchResults returns key with query and page", () => {
       expect(queryKeys.searchResults("batman", 2)).toEqual([
-        "nyumatflix",
+        "index",
         "search",
         "results",
         "batman",
@@ -35,24 +35,24 @@ describe("queryKeys", () => {
 
   describe("genre keys", () => {
     test("genres returns base genres key", () => {
-      expect(queryKeys.genres()).toEqual(["nyumatflix", "genres"]);
+      expect(queryKeys.genres()).toEqual(["index", "genres"]);
     });
 
     test("movieGenres returns movie genres key", () => {
       expect(queryKeys.movieGenres()).toEqual([
-        "nyumatflix",
+        "index",
         "genres",
         "movie",
       ]);
     });
 
     test("tvGenres returns TV genres key", () => {
-      expect(queryKeys.tvGenres()).toEqual(["nyumatflix", "genres", "tv"]);
+      expect(queryKeys.tvGenres()).toEqual(["index", "genres", "tv"]);
     });
 
     test("combinedGenres returns combined genres key", () => {
       expect(queryKeys.combinedGenres()).toEqual([
-        "nyumatflix",
+        "index",
         "genres",
         "combined",
       ]);
@@ -61,12 +61,12 @@ describe("queryKeys", () => {
 
   describe("media keys", () => {
     test("media returns base media key", () => {
-      expect(queryKeys.media()).toEqual(["nyumatflix", "media"]);
+      expect(queryKeys.media()).toEqual(["index", "media"]);
     });
 
     test("tvSeason returns key with tvId and seasonNumber", () => {
       expect(queryKeys.tvSeason(12345, 2)).toEqual([
-        "nyumatflix",
+        "index",
         "media",
         "tv",
         12345,
@@ -77,7 +77,7 @@ describe("queryKeys", () => {
 
     test("movieDetails returns key with movieId", () => {
       expect(queryKeys.movieDetails(550)).toEqual([
-        "nyumatflix",
+        "index",
         "media",
         "movie",
         550,
@@ -86,7 +86,7 @@ describe("queryKeys", () => {
 
     test("tvDetails returns key with tvId", () => {
       expect(queryKeys.tvDetails(1399)).toEqual([
-        "nyumatflix",
+        "index",
         "media",
         "tv",
         1399,
@@ -95,7 +95,7 @@ describe("queryKeys", () => {
 
     test("mediaAboveFold returns media-specific above-fold key", () => {
       expect(queryKeys.mediaAboveFold("movie", "550")).toEqual([
-        "nyumatflix",
+        "index",
         "media",
         "movie",
         "550",

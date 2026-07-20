@@ -32,7 +32,6 @@ export async function GET(
       {
         with_genres: genreId,
         sort_by: "popularity.desc",
-        language: "en-US",
         include_adult: "false",
         "vote_count.gte": "10", // Minimum vote count for quality
         ...(mediaType === "movie"

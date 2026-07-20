@@ -16,33 +16,33 @@ type VerifyRequestPageProps = {
 };
 
 export const metadata: Metadata = {
-  title: "Verify Email | NyumatFlix",
-  description: "Check your email for the magic link to sign in to NyumatFlix",
-  keywords: ["NyumatFlix", "Verify Email", "Magic Link", "Authentication"],
+  title: "Verify Email | Index",
+  description: "Check your email for the magic link to sign in to Index",
+  keywords: ["Index", "Verify Email", "Magic Link", "Authentication"],
   openGraph: {
     type: "website",
     url: `${SITE_URL}/login/verify`,
-    title: "Verify Email | NyumatFlix",
-    description: "Check your email for the magic link to sign in to NyumatFlix",
+    title: "Verify Email | Index",
+    description: "Check your email for the magic link to sign in to Index",
     images: [
       {
         url: DEFAULT_OG_IMAGE,
         width: OG_IMAGE_SIZE.width,
         height: OG_IMAGE_SIZE.height,
         type: DEFAULT_OG_IMAGE_TYPE,
-        alt: "Verify Email | NyumatFlix",
+        alt: "Verify Email | Index",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: `${SITE_URL}/login/verify`,
-    title: "Verify Email | NyumatFlix",
-    description: "Check your email for the magic link to sign in to NyumatFlix",
+    title: "Verify Email | Index",
+    description: "Check your email for the magic link to sign in to Index",
     images: [
       {
         url: DEFAULT_OG_IMAGE,
-        alt: "Verify Email | NyumatFlix",
+        alt: "Verify Email | Index",
       },
     ],
   },
@@ -120,7 +120,7 @@ export default async function VerifyRequestPage({
           <p className="text-xs leading-5 text-zinc-500">
             Having trouble?{" "}
             <Link
-              href="https://github.com/Nyumat/NyumatFlix"
+              href="https://REPLACE_WITH_YOUR_DOMAIN.com"
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-zinc-300 underline-offset-4 hover:text-white hover:underline"

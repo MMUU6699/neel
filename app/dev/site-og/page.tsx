@@ -31,7 +31,7 @@ export default function SiteOgPreviewPage() {
         <div className="bg-black p-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            alt="NyumatFlix site OG preview"
+            alt="Index site OG preview"
             src="/dev/site-og/image"
             className="mx-auto w-full max-w-[900px] rounded-xl border border-white/10"
           />
@@ -43,6 +43,6 @@ export default function SiteOgPreviewPage() {
 
 export const metadata = buildCatalogMetadata({
   title: "Site OG Preview",
-  description: "Development preview for the NyumatFlix default social card.",
+  description: "Development preview for the Index default social card.",
   path: "/dev/site-og",
 });

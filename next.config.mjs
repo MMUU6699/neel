@@ -2,7 +2,7 @@
 const nextConfig = {
   assetPrefix:
     process.env.NODE_ENV === "production"
-      ? "https://cdn.nyumatflix.com"
+      ? "https://cdn.REPLACE_WITH_YOUR_DOMAIN.com"
       : undefined,
   output: "standalone",
   outputFileTracingIncludes: {
@@ -45,12 +45,7 @@ const nextConfig = {
       },
     ];
   },
-  transpilePackages: [
-    "gsap",
-    "react-three-fiber",
-    "@react-three/drei",
-    "three",
-  ],
+
   images: {
     unoptimized: true,
     minimumCacheTTL: 60 * 60 * 24 * 30,
@@ -95,6 +90,14 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
+  // Ensure transpilation for older webOS Chromium
+  transpilePackages: [
+    "gsap",
+    "react-three-fiber",
+    "@react-three/drei",
+    "three",
+    "@noriginmedia/norigin-spatial-navigation"
+  ],
 };
 
 export default nextConfig;

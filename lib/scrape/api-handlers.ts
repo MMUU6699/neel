@@ -351,7 +351,7 @@ export async function handleAnimeScrapeGet() {
       onePiece: {
         anilistId: 21,
         tmdbTvId: 37854,
-        nyumatflix: "http://localhost:3000/tvshows/37854",
+        index: "http://localhost:3000/tvshows/37854",
         episode1Api: {
           providerId: "kickassanime",
           anilistId: 21,
@@ -361,7 +361,7 @@ export async function handleAnimeScrapeGet() {
       frieren: {
         anilistId: 101922,
         tmdbTvId: 85937,
-        nyumatflix: "http://localhost:3000/tvshows/85937",
+        index: "http://localhost:3000/tvshows/85937",
         episode1Api: {
           providerId: "anizone",
           anilistId: 101922,
@@ -370,7 +370,7 @@ export async function handleAnimeScrapeGet() {
       },
       naruto: {
         anilistId: 20,
-        nyumatflixApiQuery: {
+        indexApiQuery: {
           providerId: "animestream",
           anilistId: 20,
           episodeNumber: 1,

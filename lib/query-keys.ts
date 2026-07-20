@@ -1,5 +1,5 @@
 export const queryKeys = {
-  all: ["nyumatflix"] as const,
+  all: ["index"] as const,
 
   search: () => [...queryKeys.all, "search"] as const,
   searchPreview: (query: string) =>

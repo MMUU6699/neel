@@ -2,11 +2,11 @@ import { StaticHero } from "@/components/hero/hero-static";
 import { ContentContainer } from "@/components/layout/content-container";
 import { LegalPage } from "@/components/layout/legal-page";
 
-const githubUrl = "https://github.com/Nyumat/NyumatFlix";
+const githubUrl = "https://REPLACE_WITH_YOUR_DOMAIN.com";
 
 export const metadata = {
-  title: "DMCA Policy - NyumatFlix",
-  description: "DMCA Policy and Copyright Information for NyumatFlix",
+  title: "DMCA Policy - Index",
+  description: "DMCA Policy and Copyright Information for Index",
 };
 
 export default function DMCAPage() {
@@ -19,10 +19,10 @@ export default function DMCAPage() {
           <LegalPage title="DMCA Policy">
             <section className="mb-8">
               <h2 className="text-2xl font-bold text-foreground mb-4">
-                What Is on NyumatFlix
+                What Is on Index
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                NyumatFlix is a discovery app. We show metadata, images,
+                Index is a discovery app. We show metadata, images,
                 recommendations, provider info, and links from third-party
                 sources. We do not host, upload, store, cache, or stream movie,
                 TV, or anime video files, and users cannot upload video here.
@@ -46,7 +46,7 @@ export default function DMCAPage() {
                 Copyright Issues
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                If you believe something on NyumatFlix itself infringes your
+                If you believe something on Index itself infringes your
                 rights, like a listing, image, description, or link, send a
                 request on{" "}
                 <a
@@ -61,7 +61,7 @@ export default function DMCAPage() {
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li>The copyrighted work involved.</li>
-                <li>The exact NyumatFlix URL or item at issue.</li>
+                <li>The exact Index URL or item at issue.</li>
                 <li>Your contact information.</li>
                 <li>A good-faith statement that the use is not authorized.</li>
                 <li>
@@ -79,7 +79,7 @@ export default function DMCAPage() {
               <p className="text-muted-foreground leading-relaxed">
                 We will review complete requests and may remove or disable
                 disputed listings, images, descriptions, or links when that
-                makes sense. Repeated abuse of NyumatFlix accounts or features
+                makes sense. Repeated abuse of Index accounts or features
                 may lead to account restrictions.
               </p>
             </section>
@@ -109,7 +109,7 @@ export default function DMCAPage() {
                 >
                   GitHub
                 </a>{" "}
-                with the subject "Copyright Inquiry - NyumatFlix". False or
+                with the subject "Copyright Inquiry - Index". False or
                 misleading DMCA notices can get you in legal trouble under
                 Section 512(f).
               </p>

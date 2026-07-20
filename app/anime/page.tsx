@@ -58,13 +58,13 @@ export async function generateMetadata({
   const description = pageDescription(params) ?? DEFAULT_ANIME_DESCRIPTION;
 
   return {
-    title: "Anime | NyumatFlix",
+    title: "Anime | Index",
     description,
     openGraph: {
-      title: "Anime | NyumatFlix",
+      title: "Anime | Index",
       description,
       type: "website",
-      siteName: "NyumatFlix",
+      siteName: "Index",
     },
   };
 }

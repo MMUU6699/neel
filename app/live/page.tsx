@@ -23,7 +23,7 @@ export async function generateMetadata({
 }: LivePageProps): Promise<Metadata> {
   const flags = await getSiteFlags();
   if (!flags.liveTvEnabled) {
-    return { title: "Not Found | NyumatFlix" };
+    return { title: "Not Found | Index" };
   }
 
   const { ch } = await searchParams;

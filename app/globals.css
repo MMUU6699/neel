@@ -516,3 +516,35 @@ html {
     display: none;
   }
 }
+
+/* webOS TV Specific Styles */
+html.tv-mode {
+  font-size: 110%; /* Increase base font size for 10-foot UI */
+}
+
+.tv-mode body {
+  /* Prevent scrolling overflow issues on TV */
+  overflow: hidden;
+}
+
+@utility tv-safe-area {
+  padding: 5%;
+}
+
+.tv-mode *:focus,
+.tv-mode *:focus-visible {
+  outline: 4px solid hsl(var(--primary));
+  outline-offset: 4px;
+  transform: scale(1.02);
+  transition: transform 0.2s ease, outline 0.2s ease;
+  z-index: 50;
+  box-shadow: 0 0 15px hsl(var(--primary) / 0.5);
+}
+
+/* Disable heavy backdrop-filters on TV for performance */
+.tv-mode .backdrop-blur-md,
+.tv-mode .backdrop-blur-lg,
+.tv-mode .backdrop-blur-xl {
+  backdrop-filter: none !important;
+  background-color: hsl(var(--background) / 0.95) !important;
+}

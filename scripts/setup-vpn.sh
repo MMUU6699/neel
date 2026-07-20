@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Workstation entrypoint for NyumatFlix production infrastructure.
+# Workstation entrypoint for Index production infrastructure.
 # Usage: setup-vpn.sh bootstrap | ensure | update | rotate | status | test
 
 set -euo pipefail
@@ -9,16 +9,16 @@ SSH_HOST="${SSH_HOST:-leetbot}"
 LOCAL_VPN_ENV="${LOCAL_VPN_ENV:-$ROOT/.env.vpn}"
 
 sync_reconciler() {
-  ssh "$SSH_HOST" 'mkdir -p "$HOME/apps/nyumatflix/scripts" "$HOME/apps/gluetun"'
+  ssh "$SSH_HOST" 'mkdir -p "$HOME/apps/index/scripts" "$HOME/apps/gluetun"'
   rsync -avz \
     "$ROOT/docker-compose.scrape.yml" \
     "$ROOT/docker-compose.ffs.yml" \
-    "$SSH_HOST:~/apps/nyumatflix/"
+    "$SSH_HOST:~/apps/index/"
   rsync -avz \
     "$ROOT/scripts/reconcile-prod-infra.sh" \
-    "$SSH_HOST:~/apps/nyumatflix/scripts/reconcile-prod-infra.sh"
+    "$SSH_HOST:~/apps/index/scripts/reconcile-prod-infra.sh"
   if [[ -d "$ROOT/flipt" ]]; then
-    rsync -avz "$ROOT/flipt/" "$SSH_HOST:~/apps/nyumatflix/flipt/"
+    rsync -avz "$ROOT/flipt/" "$SSH_HOST:~/apps/index/flipt/"
   fi
 }
 
@@ -32,7 +32,7 @@ upload_vpn_seed() {
 
 run_reconciler() {
   local action="$1"
-  ssh "$SSH_HOST" "NYUMATFLIX_ROOT=\"\$HOME/apps/nyumatflix\" \"\$HOME/apps/nyumatflix/scripts/reconcile-prod-infra.sh\" '$action'"
+  ssh "$SSH_HOST" "INDEX_ROOT=\"\$HOME/apps/index\" \"\$HOME/apps/index/scripts/reconcile-prod-infra.sh\" '$action'"
 }
 
 bootstrap() {

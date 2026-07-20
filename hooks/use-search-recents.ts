@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const SEARCH_RECENTS_KEY = "nyumatflix.search.recents";
+const SEARCH_RECENTS_KEY = "index.search.recents";
 const MAX_RECENT_SEARCHES = 3;
 
 export function useSearchRecents(enabled: boolean) {

@@ -24,7 +24,7 @@ export function AuthTogglesPanel({ flags, onChange }: AuthTogglesPanelProps) {
       <CardHeader>
         <CardTitle className="text-lg">Auth</CardTitle>
         <CardDescription>
-          Sign-in and signup controls for nyumatflix.com.
+          Sign-in and signup controls for REPLACE_WITH_YOUR_DOMAIN.com.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">

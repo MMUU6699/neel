@@ -13,7 +13,7 @@ import {
 
 type GateAction = (action: () => void) => void;
 
-const ADBLOCK_PROMPT_DISMISSED_KEY = "nyumatflix:adblock-prompt-dismissed";
+const ADBLOCK_PROMPT_DISMISSED_KEY = "index:adblock-prompt-dismissed";
 
 const hasDismissedAdblockPrompt = () => {
   try {

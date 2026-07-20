@@ -32,7 +32,14 @@ import {
   shouldBypassTmdbDataCache,
   tmdbFetchInit,
 } from "@/lib/tmdb-cache-policy";
-import { withDevelopmentDataCache } from "@/lib/server/development-data-cache";
+import {
+  clearDevelopmentDataCache,
+  withDevelopmentDataCache,
+} from "@/lib/server/development-data-cache";
+
+if (process.env.NODE_ENV === "development") {
+  clearDevelopmentDataCache();
+}
 
 export type MovieListType =
   | "popular"
@@ -309,10 +316,10 @@ const apiConfig = {
   baseUrl,
   defaultHeaders: {
     "Content-Type": "application/json",
+    // TMDB supports both api_key param and Bearer token; use Bearer for read access token
+    ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
   } as Record<string, string>,
-  defaultParams: {
-    ...(apiKey ? { api_key: apiKey } : {}),
-  } as Record<string, string>,
+  defaultParams: {} as Record<string, string>,
 };
 
 type FetcherOptions = {
@@ -389,12 +396,26 @@ const fetcher: Fetcher = async <T>(
       throw error;
     }
 
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error(
+        `[tmdb] fetch error ${response.status} ${response.statusText} for ${url}: ${errorBody}`,
+      );
+      throw new Error(
+        `TMDB fetch failed: ${response.status} ${response.statusText}`,
+      );
+    }
+
     return { data: await response.json(), cacheable: true };
   };
 
   if (shouldBypassTmdbDataCache(endpoint, sanitizedParams)) {
     const result = await execute();
     return result.data as T;
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    clearDevelopmentDataCache();
   }
 
   const result = await withDevelopmentDataCache({

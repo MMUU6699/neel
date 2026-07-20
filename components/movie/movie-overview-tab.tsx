@@ -11,6 +11,22 @@ import { Calendar, Clock, Star } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+const getClientLocale = (): string => {
+  try {
+    if (typeof document !== "undefined") {
+      const match = document.cookie
+        .split(";")
+        .map((s) => s.trim())
+        .find((s) => s.startsWith("NEXT_LOCALE="));
+      if (match) return match.split("=")[1];
+    }
+    if (typeof navigator !== "undefined") return (navigator.language || "en").split("-")[0];
+  } catch (e) {
+    /* ignore */
+  }
+  return "en";
+};
+
 const factLinkClass =
   "text-sky-300/95 underline decoration-sky-400/35 underline-offset-2 transition hover:text-sky-200 hover:decoration-sky-300/60";
 
@@ -50,11 +66,12 @@ export const MovieOverviewTab = ({
   const formattedRuntime = hasRuntime ? `${hours}h ${minutes}m` : "Runtime TBA";
 
   const releaseDate = details.release_date
-    ? new Date(details.release_date).toLocaleDateString("en-US", {
+    ? new Date(details.release_date).toLocaleDateString(getClientLocale(), {
         timeZone: "UTC",
         year: "numeric",
         month: "long",
         day: "numeric",
+        numberingSystem: "latn",
       })
     : "Release Date TBA";
 
@@ -74,10 +91,10 @@ export const MovieOverviewTab = ({
     vote_average && vote_average > 0 ? (
       <>
         {vote_average.toFixed(1)}/10
-        {vote_count && vote_count > 0 ? (
+            {vote_count && vote_count > 0 ? (
           <span className="text-muted-foreground">
             {" "}
-            ({vote_count.toLocaleString()} votes)
+            ({vote_count.toLocaleString(getClientLocale(), { numberingSystem: "latn" })} votes)
           </span>
         ) : null}
       </>
@@ -132,11 +149,11 @@ export const MovieOverviewTab = ({
     ...(isUpcoming && status
       ? [{ label: "Status", value: <StatusBadge status={status} /> }]
       : []),
-    ...(!isUpcoming && budget > 0
-      ? [{ label: "Budget", value: `$${budget.toLocaleString()}` }]
+      ...(!isUpcoming && budget > 0
+      ? [{ label: "Budget", value: `$${budget.toLocaleString(getClientLocale(), { numberingSystem: "latn" })}` }]
       : []),
     ...(!isUpcoming && revenue > 0
-      ? [{ label: "Revenue", value: `$${revenue.toLocaleString()}` }]
+      ? [{ label: "Revenue", value: `$${revenue.toLocaleString(getClientLocale(), { numberingSystem: "latn" })}` }]
       : []),
     {
       label: "Original language",

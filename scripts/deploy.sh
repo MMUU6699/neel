@@ -5,27 +5,27 @@
 #   ./scripts/deploy.sh stop   # stop app container
 #
 # Override defaults:
-#   DOCKER_IMAGE=whotypes/nyumatflix:latest CONTAINER_NAME=nyumatflix \
-#   ENV_FILE="$HOME/apps/nyumatflix/.env" \
+#   DOCKER_IMAGE=whotypes/index:latest CONTAINER_NAME=index \
+#   ENV_FILE="$HOME/apps/index/.env" \
 #   ./scripts/deploy.sh serve
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [[ -n "${NYUMATFLIX_ROOT:-}" ]]; then
-  ROOT="$NYUMATFLIX_ROOT"
+if [[ -n "${INDEX_ROOT:-}" ]]; then
+  ROOT="$INDEX_ROOT"
 elif [[ "$(basename "$SCRIPT_DIR")" == "scripts" ]]; then
   ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 else
   ROOT="$SCRIPT_DIR"
 fi
-DOCKER_IMAGE="${DOCKER_IMAGE:-whotypes/nyumatflix:latest}"
-CONTAINER_NAME="${CONTAINER_NAME:-nyumatflix}"
+DOCKER_IMAGE="${DOCKER_IMAGE:-whotypes/index:latest}"
+CONTAINER_NAME="${CONTAINER_NAME:-index}"
 DOCKER_NETWORK="${DOCKER_NETWORK:-betterome}"
-ENV_FILE="${ENV_FILE:-$HOME/apps/nyumatflix/.env}"
+ENV_FILE="${ENV_FILE:-$HOME/apps/index/.env}"
 BUILD_ENV_FILE="${BUILD_ENV_FILE:-$ROOT/.env.prod}"
 CONTAINER_APP_PORT="${CONTAINER_APP_PORT:-8080}"
-NGINX_UPSTREAM_FILE="${NGINX_UPSTREAM_FILE:-/etc/nginx/conf.d/nyumatflix-upstream.conf}"
+NGINX_UPSTREAM_FILE="${NGINX_UPSTREAM_FILE:-/etc/nginx/conf.d/index-upstream.conf}"
 BLUE_PORT="${BLUE_PORT:-8081}"
 GREEN_PORT="${GREEN_PORT:-8082}"
 HEALTH_WAIT_SECONDS="${HEALTH_WAIT_SECONDS:-60}"
@@ -63,13 +63,13 @@ build_push() {
 acquire_deploy_lock() {
   exec 9>"$DEPLOY_LOCK_FILE"
   if ! flock -n 9; then
-    echo "another NyumatFlix deploy is already running" >&2
+    echo "another Index deploy is already running" >&2
     exit 1
   fi
 }
 
 ensure_runtime_infra() {
-  NYUMATFLIX_ROOT="$ROOT" APP_ENV_FILE="$ENV_FILE" \
+  INDEX_ROOT="$ROOT" APP_ENV_FILE="$ENV_FILE" \
     "$ROOT/scripts/reconcile-prod-infra.sh" ensure
 }
 
@@ -145,7 +145,7 @@ serve() {
   if sudo test -f "$NGINX_UPSTREAM_FILE"; then
     sudo cp "$NGINX_UPSTREAM_FILE" "$upstream_backup"
   fi
-  printf '# Managed by scripts/deploy.sh. This file is loaded from nginx\047s http context.\nupstream nyumatflix_app {\n    server 127.0.0.1:%s;\n    keepalive 64;\n}\n' "$target_port" \
+  printf '# Managed by scripts/deploy.sh. This file is loaded from nginx\047s http context.\nupstream index_app {\n    server 127.0.0.1:%s;\n    keepalive 64;\n}\n' "$target_port" \
     | sudo tee "${NGINX_UPSTREAM_FILE}.next" >/dev/null
   sudo mv "${NGINX_UPSTREAM_FILE}.next" "$NGINX_UPSTREAM_FILE"
 
@@ -178,7 +178,7 @@ serve() {
   sudo docker rename "$candidate" "$CONTAINER_NAME"
 
   if [[ -n "$old_name" ]]; then
-    sudo sh -c "(sleep '$DRAIN_SECONDS'; docker rm -f '$old_name') >>/var/log/nyumatflix-deploy-cleanup.log 2>&1 &"
+    sudo sh -c "(sleep '$DRAIN_SECONDS'; docker rm -f '$old_name') >>/var/log/index-deploy-cleanup.log 2>&1 &"
   fi
 
   echo "running $CONTAINER_NAME from $DOCKER_IMAGE (127.0.0.1:${target_port}->:${CONTAINER_APP_PORT})"

@@ -22,16 +22,16 @@ export const FooterSection = () => {
           <Link
             href="/"
             className="flex shrink-0 items-center space-x-2"
-            aria-label="NyumatFlix homepage"
+            aria-label="Index homepage"
           >
             <Image
               src="/logo.svg"
-              alt="NyumatFlix Logo"
+              alt="Index Logo"
               width={30}
               height={30}
               className="hover:scale-105 transition-transform duration-200"
             />
-            <h3 className="text-base font-bold text-secondary">NyumatFlix</h3>
+            <h3 className="text-base font-bold text-secondary">Index</h3>
           </Link>
 
           <div className="flex flex-wrap items-center justify-start gap-3 sm:justify-end sm:gap-4 lg:gap-5">
@@ -59,10 +59,10 @@ export const FooterSection = () => {
               aria-label="Social media links"
             >
               <Link
-                href="https://github.com/Nyumat/NyumatFlix"
+                href="https://REPLACE_WITH_YOUR_DOMAIN.com"
                 className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-muted transition-all duration-200 hover:bg-accent group"
-                aria-label="NyumatFlix GitHub repository"
-                title="NyumatFlix GitHub repository"
+                aria-label="Index GitHub repository"
+                title="Index GitHub repository"
                 target="_blank"
                 rel="noopener noreferrer"
               >

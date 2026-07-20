@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 export const ONBOARDING_SUPPRESSION_EVENT =
-  "nyumatflix:onboarding-suppression-change";
+  "index:onboarding-suppression-change";
 
 export function OnboardingSuppression() {
   useEffect(() => {

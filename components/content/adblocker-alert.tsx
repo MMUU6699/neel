@@ -64,10 +64,10 @@ export const AdblockerAlert = ({
             <div className="space-y-3 text-sm text-muted-foreground">
               <p>
                 <a
-                  href="https://nyumatflix.com"
+                  href="https://REPLACE_WITH_YOUR_DOMAIN.com"
                   className="font-bold text-primary hover:underline"
                 >
-                  nyumatflix.com
+                  REPLACE_WITH_YOUR_DOMAIN.com
                 </a>{" "}
                 itself is ad-free. However, the embed providers we aggregate
                 from often inject scripts within their iframes to display popups

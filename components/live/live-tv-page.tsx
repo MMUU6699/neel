@@ -15,7 +15,7 @@ import {
 import type { LiveChannel, LiveChannelsResponse } from "@/lib/live/types";
 
 const ALL_CATEGORIES = "all";
-const DEFAULT_DOCUMENT_TITLE = "Live TV | NyumatFlix";
+const DEFAULT_DOCUMENT_TITLE = "Live TV | Index";
 
 type LiveTvPageProps = {
   initialGuide: LiveChannelsResponse;
@@ -116,7 +116,7 @@ export function LiveTvPage({
 
   useEffect(() => {
     document.title = selectedChannel
-      ? `${selectedChannel.name} Live | NyumatFlix`
+      ? `${selectedChannel.name} Live | Index`
       : DEFAULT_DOCUMENT_TITLE;
   }, [selectedChannel]);
 

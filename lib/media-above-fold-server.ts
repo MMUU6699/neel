@@ -123,8 +123,14 @@ export const getCachedMediaAboveFoldDetail = cache(
         ? "images,videos,external_ids,release_dates"
         : "images,videos,external_ids,content_ratings";
     const url = new URL(`${TMDB_BASE_URL}/${mediaType}/${id}`);
-    url.searchParams.set("api_key", process.env.TMDB_API_KEY ?? "");
-    url.searchParams.set("language", "en-US");
+    // Resolve locale and set TMDB language param if not present
+    try {
+      const { getLocale } = await import("@/i18n/request");
+      const locale = await getLocale();
+      url.searchParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch (e) {
+      url.searchParams.set("language", "en");
+    }
     url.searchParams.set("append_to_response", append);
 
     const response = await fetch(
@@ -133,6 +139,12 @@ export const getCachedMediaAboveFoldDetail = cache(
         endpoint: url.toString(),
         params: url.searchParams,
         revalidate: CACHE_REVALIDATE_SECONDS,
+        init: {
+          headers: {
+            Authorization: `Bearer ${process.env.TMDB_API_KEY ?? ""}`,
+            "Content-Type": "application/json",
+          },
+        },
       }),
     );
     if (!response.ok) {

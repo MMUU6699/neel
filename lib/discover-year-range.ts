@@ -13,7 +13,6 @@ export const createYearFilterParams = (
     return {
       endpoint: `/discover/${mediaType}`,
       params: {
-        language: "en-US",
         include_adult: "false",
         sort_by: "popularity.desc",
         [`${dateField}.gte`]: `${startYear}-01-01`,
@@ -26,7 +25,6 @@ export const createYearFilterParams = (
   return {
     endpoint: `/discover/${mediaType}`,
     params: {
-      language: "en-US",
       include_adult: "false",
       sort_by: "popularity.desc",
       [`${dateField}.gte`]: `${year}-01-01`,

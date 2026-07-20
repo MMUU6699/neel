@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-container="${CONTAINER_NAME:-nyumatflix}"
+container="${CONTAINER_NAME:-index}"
 
-exec 9>/run/nyumatflix-watchdog/lock
+exec 9>/run/index-watchdog/lock
 flock -n 9 || exit 0
 
 if ! docker inspect "$container" >/dev/null 2>&1; then
@@ -16,5 +16,5 @@ if [[ "$state" != "running unhealthy" ]]; then
   exit 0
 fi
 
-logger -t nyumatflix-watchdog "restarting unhealthy container $container"
+logger -t index-watchdog "restarting unhealthy container $container"
 docker restart --time 30 "$container" >/dev/null

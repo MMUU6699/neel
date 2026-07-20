@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# Run on leetbot to wire analytics.nyumatflix.com → Umami (127.0.0.1:3001).
+# Run on leetbot to wire analytics.REPLACE_WITH_YOUR_DOMAIN.com → Umami (127.0.0.1:3001).
 #
 # Usage:
 #   ./scripts/setup-analytics.sh bootstrap   # HTTP-only nginx + certbot
 #   ./scripts/setup-analytics.sh finish      # HTTPS nginx after cert issued
 #   ./scripts/setup-analytics.sh verify      # smoke tests
-#   ./scripts/setup-analytics.sh website     # ensure NyumatFlix website in Umami DB
+#   ./scripts/setup-analytics.sh website     # ensure Index website in Umami DB
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-NGINX_AVAILABLE="/etc/nginx/sites-available/analytics-nyumatflix"
-NGINX_ENABLED="/etc/nginx/sites-enabled/analytics-nyumatflix"
+NGINX_AVAILABLE="/etc/nginx/sites-available/analytics-index"
+NGINX_ENABLED="/etc/nginx/sites-enabled/analytics-index"
 UMAMI_WEBSITE_ID="${UMAMI_WEBSITE_ID:-eb985e75-d6fe-42d3-8e24-0de58c4bf22c}"
-UMAMI_DOMAIN="${UMAMI_DOMAIN:-nyumatflix.com}"
+UMAMI_DOMAIN="${UMAMI_DOMAIN:-REPLACE_WITH_YOUR_DOMAIN.com}"
 
 cmd="${1:-bootstrap}"
 
@@ -36,35 +36,35 @@ ensure_umami_website() {
 
   sudo docker exec umami-db-1 psql -U umami -d umami -c \
     "INSERT INTO website (website_id, name, domain, user_id, created_by, replay_enabled)
-     VALUES ('${UMAMI_WEBSITE_ID}', 'NyumatFlix', '${UMAMI_DOMAIN}', '${admin_id}', '${admin_id}', true);"
-  echo "created umami website NyumatFlix (${UMAMI_WEBSITE_ID})"
+     VALUES ('${UMAMI_WEBSITE_ID}', 'Index', '${UMAMI_DOMAIN}', '${admin_id}', '${admin_id}', true);"
+  echo "created umami website Index (${UMAMI_WEBSITE_ID})"
 }
 
 bootstrap() {
-  sudo cp "$ROOT/scripts/nginx-analytics-nyumatflix-bootstrap.conf" "$NGINX_AVAILABLE"
+  sudo cp "$ROOT/scripts/nginx-analytics-index-bootstrap.conf" "$NGINX_AVAILABLE"
   sudo ln -sf "$NGINX_AVAILABLE" "$NGINX_ENABLED"
   sudo nginx -t
   sudo systemctl reload nginx
-  echo "bootstrap nginx live for analytics.nyumatflix.com"
+  echo "bootstrap nginx live for analytics.REPLACE_WITH_YOUR_DOMAIN.com"
 }
 
 issue_cert() {
   sudo certbot certonly --webroot \
     -w /var/www/certbot \
-    -d analytics.nyumatflix.com \
-    --non-interactive --agree-tos -m admin@nyumatflix.com \
+    -d analytics.REPLACE_WITH_YOUR_DOMAIN.com \
+    --non-interactive --agree-tos -m admin@REPLACE_WITH_YOUR_DOMAIN.com \
     || sudo certbot certonly --nginx \
-      -d analytics.nyumatflix.com \
-      --non-interactive --agree-tos -m admin@nyumatflix.com
-  echo "certificate issued for analytics.nyumatflix.com"
+      -d analytics.REPLACE_WITH_YOUR_DOMAIN.com \
+      --non-interactive --agree-tos -m admin@REPLACE_WITH_YOUR_DOMAIN.com
+  echo "certificate issued for analytics.REPLACE_WITH_YOUR_DOMAIN.com"
 }
 
 finish() {
-  sudo cp "$ROOT/scripts/nginx-analytics-nyumatflix.conf" "$NGINX_AVAILABLE"
+  sudo cp "$ROOT/scripts/nginx-analytics-index.conf" "$NGINX_AVAILABLE"
   sudo ln -sf "$NGINX_AVAILABLE" "$NGINX_ENABLED"
   sudo nginx -t
   sudo systemctl reload nginx
-  echo "HTTPS nginx live for analytics.nyumatflix.com"
+  echo "HTTPS nginx live for analytics.REPLACE_WITH_YOUR_DOMAIN.com"
 }
 
 verify() {
@@ -73,16 +73,16 @@ verify() {
   echo
 
   echo "== nginx host routing (HTTP) =="
-  curl -fsS -H "Host: analytics.nyumatflix.com" http://127.0.0.1/api/heartbeat
+  curl -fsS -H "Host: analytics.REPLACE_WITH_YOUR_DOMAIN.com" http://127.0.0.1/api/heartbeat
   echo
 
-  if curl -fsS https://analytics.nyumatflix.com/api/heartbeat 2>/dev/null; then
+  if curl -fsS https://analytics.REPLACE_WITH_YOUR_DOMAIN.com/api/heartbeat 2>/dev/null; then
     echo
     echo "== public HTTPS heartbeat OK =="
-    curl -fsSI https://analytics.nyumatflix.com/login | head -5
+    curl -fsSI https://analytics.REPLACE_WITH_YOUR_DOMAIN.com/login | head -5
     echo
     echo "== tracker script =="
-    curl -fsSI "https://analytics.nyumatflix.com/script.js" | head -3
+    curl -fsSI "https://analytics.REPLACE_WITH_YOUR_DOMAIN.com/script.js" | head -3
   else
     echo "public HTTPS not ready yet (DNS or cert pending)" >&2
     exit 1

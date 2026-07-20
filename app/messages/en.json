@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Home",
+    "movies": "Movies",
+    "tvShows": "TV Shows",
+    "anime": "Anime",
+    "search": "Search",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "watchlist": "Watchlist",
+    "browse": "Browse",
+    "live": "Live",
+    "trending": "Trending",
+    "people": "People"
+  },
+  "footer": {
+    "explore": "Explore",
+    "legal": "Legal",
+    "about": "About",
+    "copyright": "Made with care for you and me.",
+    "indexHomepage": "Index homepage"
+  },
+  "movieDetail": {
+    "overview": "Overview",
+    "cast": "Cast",
+    "recommendations": "You Might Like",
+    "budget": "Budget",
+    "revenue": "Revenue",
+    "votes": "votes"
+  },
+  "search": {
+    "placeholder": "Search for movies, TV shows, or people",
+    "noResults": "No results found"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "email": "Email",
+    "password": "Password"
+  },
+  "watchlist": {
+    "empty": "Your watchlist is empty",
+    "remove": "Remove"
+  },
+  "errors": {
+    "pageNotFound": "Page Not Found",
+    "pageDoesNotExist": "You've reached a page that doesn't exist.",
+    "goBack": "Go back to the home page",
+    "invalidLocale": "Invalid locale"
+  },
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "arabic": "Arabic",
+    "loading": "Loading...",
+    "play": "Play",
+    "playTrailer": "Play trailer",
+    "close": "Close",
+    "viewMore": "View more"
+  },
+  "settings": {
+    "language": "Language",
+    "selectLanguage": "Select language"
+  }
+}

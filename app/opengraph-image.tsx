@@ -14,7 +14,7 @@ const getRequestOrigin = async () => {
   const host =
     headerList.get("x-forwarded-host") ??
     headerList.get("host") ??
-    "nyumatflix.com";
+    "REPLACE_WITH_YOUR_DOMAIN.com";
   const protocol =
     headerList.get("x-forwarded-proto") ??
     (host.includes("localhost") ? "http" : "https");

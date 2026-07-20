@@ -10,10 +10,10 @@ authentication:
       enabled: true
       storage:
         tokens:
-          nyumatflix_app:
+          index_app:
             credential: "${env:FLIPT_API_TOKEN}"
             metadata:
-              description: "NyumatFlix app read/write"
+              description: "Index app read/write"
 
 storage:
   default:

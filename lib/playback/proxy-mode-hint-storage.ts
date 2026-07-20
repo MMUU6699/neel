@@ -1,4 +1,4 @@
-const PROXY_MODE_HINT_SEEN_KEY = "nyumatflix:proxy-mode-hint-seen";
+const PROXY_MODE_HINT_SEEN_KEY = "index:proxy-mode-hint-seen";
 
 export function hasSeenProxyModeHint(): boolean {
   try {

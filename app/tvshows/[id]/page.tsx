@@ -39,5 +39,5 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     : "";
   const nameWithYear = year ? `${tvShow.name} (${year})` : tvShow.name;
 
-  return { ...base, title: `${nameWithYear} | NyumatFlix` };
+  return { ...base, title: `${nameWithYear} | Index` };
 }

@@ -2,11 +2,11 @@ import { StaticHero } from "@/components/hero/hero-static";
 import { ContentContainer } from "@/components/layout/content-container";
 import { LegalPage } from "@/components/layout/legal-page";
 
-const githubUrl = "https://github.com/Nyumat/NyumatFlix";
+const githubUrl = "https://REPLACE_WITH_YOUR_DOMAIN.com";
 
 export const metadata = {
-  title: "Terms of Service - NyumatFlix",
-  description: "Terms of Service for NyumatFlix",
+  title: "Terms of Service - Index",
+  description: "Terms of Service for Index",
 };
 
 export default function TermsPage() {
@@ -22,7 +22,7 @@ export default function TermsPage() {
                 What This App Does
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                NyumatFlix is a free, open-source app for finding movies, TV,
+                Index is a free, open-source app for finding movies, TV,
                 and anime. You can browse titles, check details, watch trailers,
                 find providers, and save watchlist or progress if you sign in.
                 We do not sell subscriptions, and we do not host, upload, store,
@@ -35,7 +35,7 @@ export default function TermsPage() {
                 Basic Rules
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Use NyumatFlix normally. Be Normal. Please, do not:
+                Use Index normally. Be Normal. Please, do not:
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li>Overload, scrape, or break the site.</li>
@@ -64,7 +64,7 @@ export default function TermsPage() {
               <p className="text-muted-foreground leading-relaxed">
                 Title data comes from services like TMDb and AniList. Watch
                 links, embedded players, provider pages, and other external
-                sites are not run by NyumatFlix. They may have their own rules,
+                sites are not run by Index. They may have their own rules,
                 ads, privacy policies, availability, and restrictions.
               </p>
             </section>
@@ -85,7 +85,7 @@ export default function TermsPage() {
                 Open Source
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                NyumatFlix is open-source software released under the MIT
+                Index is open-source software released under the MIT
                 License. You can review the code or contribute on{" "}
                 <a
                   href={githubUrl}

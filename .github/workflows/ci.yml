@@ -2,9 +2,9 @@ name: CI
 
 env:
   HUSKY: 0
-  APP_URL: https://nyumatflix.com
-  AUTH_URL: https://nyumatflix.com
-  NEXTAUTH_URL: https://nyumatflix.com
+  APP_URL: https://REPLACE_WITH_YOUR_DOMAIN.com
+  AUTH_URL: https://REPLACE_WITH_YOUR_DOMAIN.com
+  NEXTAUTH_URL: https://REPLACE_WITH_YOUR_DOMAIN.com
   FLARESOLVERR_URL: http://flaresolverr:8191/v1
   SCRAPE_PROXY_URL: http://gluetun:8888
   SCRAPE_VPN_CONTROL_URL: http://gluetun:8000
@@ -114,7 +114,7 @@ jobs:
     needs: ci
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     env:
-      DOCKER_REPOSITORY: whotypes/nyumatflix
+      DOCKER_REPOSITORY: whotypes/index
 
     steps:
       - name: Checkout code
@@ -147,15 +147,15 @@ jobs:
     needs: [ci, build-push]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     concurrency:
-      group: nyumatflix-production
+      group: index-production
       cancel-in-progress: false
     env:
       DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
       DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
       DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-      DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/home/whotypes/apps/nyumatflix' }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/home/whotypes/apps/index' }}
       DEPLOY_PORT: ${{ vars.DEPLOY_PORT || '22' }}
-      DOCKER_IMAGE: whotypes/nyumatflix:${{ github.sha }}
+      DOCKER_IMAGE: whotypes/index:${{ github.sha }}
 
     steps:
       - uses: actions/checkout@v4
@@ -186,5 +186,5 @@ jobs:
         run: |
           ssh -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" <<EOF
           set -euo pipefail
-          NYUMATFLIX_ROOT="$DEPLOY_PATH" DOCKER_IMAGE="$DOCKER_IMAGE" "$DEPLOY_PATH/deploy.sh" serve
+          INDEX_ROOT="$DEPLOY_PATH" DOCKER_IMAGE="$DOCKER_IMAGE" "$DEPLOY_PATH/deploy.sh" serve
           EOF

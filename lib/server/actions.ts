@@ -1,4 +1,5 @@
 import "server-only";
+import { getLocale } from "@/i18n/request";
 
 import { movieDb, TMDB_API_KEY, TMDB_BASE_URL } from "@/lib/constants";
 import { filterZeroRevenueMovies } from "@/lib/movie-revenue-filter";
@@ -85,6 +86,15 @@ const isNetworkFetchError = (error: unknown): boolean => {
 
   return error.message === "fetch failed";
 };
+
+async function resolveTmdbLanguage(): Promise<string> {
+  try {
+    const locale = await getLocale();
+    return locale === "ar" ? "ar" : "en-US";
+  } catch (e) {
+    return "en-US";
+  }
+}
 
 export interface Movie {
   adult: boolean;
@@ -234,23 +244,19 @@ export const fetchAllData = async () => {
   ] = await Promise.all([
     fetchTMDBData("/movie/popular", {
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
     fetchTMDBData("/movie/top_rated", {
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
     fetchTMDBData("/tv/popular", {
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
     fetchTMDBData("/tv/top_rated", {
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -259,7 +265,6 @@ export const fetchAllData = async () => {
       with_genres: "28",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -267,7 +272,6 @@ export const fetchAllData = async () => {
       with_genres: "35",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -275,7 +279,6 @@ export const fetchAllData = async () => {
       with_genres: "18",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -283,7 +286,6 @@ export const fetchAllData = async () => {
       with_genres: "53",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -291,7 +293,6 @@ export const fetchAllData = async () => {
       with_genres: "878,14",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -299,7 +300,6 @@ export const fetchAllData = async () => {
       with_genres: "10749,35",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
     }),
 
@@ -309,7 +309,6 @@ export const fetchAllData = async () => {
       "vote_count.lte": "5000",
       sort_by: "vote_average.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -318,7 +317,6 @@ export const fetchAllData = async () => {
       "vote_count.gte": "2000",
       sort_by: "vote_average.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -328,7 +326,6 @@ export const fetchAllData = async () => {
       "primary_release_date.lte": "1989-12-31",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -337,7 +334,6 @@ export const fetchAllData = async () => {
       "primary_release_date.lte": "1999-12-31",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -346,7 +342,6 @@ export const fetchAllData = async () => {
       "primary_release_date.lte": "2009-12-31",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -354,7 +349,6 @@ export const fetchAllData = async () => {
       "primary_release_date.gte": "2023-01-01",
       sort_by: "popularity.desc",
       region: "US",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }),
@@ -363,7 +357,6 @@ export const fetchAllData = async () => {
       with_type: "5",
       "vote_average.gte": "7.5",
       sort_by: "popularity.desc",
-      language: "en-US",
       include_adult: "false",
       without_genres: "10749",
     }), // Limited Series
@@ -373,7 +366,6 @@ export const fetchAllData = async () => {
       "vote_average.gte": "7.0",
       "vote_count.gte": "1500",
       include_adult: "false",
-      language: "en-US",
       region: "US",
       without_genres: "10749",
     }),
@@ -422,7 +414,7 @@ export async function fetchTMDBData<T = MediaItem>(
   if (isDetailEndpoint) {
     url.searchParams.append("append_to_response", appendItems.join(","));
   }
-  url.searchParams.append("api_key", apiKey);
+  // Do NOT add api_key as param — the key is a JWT Bearer token, must go in header
   url.searchParams.append("page", page.toString());
 
   const isRomanceQuery =
@@ -435,6 +427,17 @@ export async function fetchTMDBData<T = MediaItem>(
     }
   }
 
+  // If no language param provided, resolve the locale for this request
+  if (!url.searchParams.has("language") && !Object.prototype.hasOwnProperty.call(filteredParams, "language")) {
+    try {
+      const locale = await getLocale();
+      const tmdbLang = locale === "ar" ? "ar" : "en";
+      url.searchParams.append("language", tmdbLang);
+    } catch (e) {
+      url.searchParams.append("language", "en");
+    }
+  }
+
   let response: Response;
   try {
     response = await fetch(
@@ -443,6 +446,12 @@ export async function fetchTMDBData<T = MediaItem>(
         endpoint: url.toString(),
         params: url.searchParams,
         revalidate: 3600,
+        init: {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+        },
       }),
     );
   } catch (error) {
@@ -701,9 +710,10 @@ export async function fetchPersonFilmography(
   page: number = 1,
 ) {
   try {
+    const lang = await resolveTmdbLanguage();
     const creditsData = await movieDb.personCombinedCredits({
       id: personId,
-      language: "en-US",
+      language: lang,
     });
 
     const creditsList = [
@@ -791,9 +801,10 @@ export async function getPersonDetails(
   personId: number,
 ): Promise<PersonDetails | null> {
   try {
+    const lang = await resolveTmdbLanguage();
     const person = await movieDb.personInfo({
       id: personId,
-      language: "en-US",
+      language: lang,
     });
     return toPersonDetails(person);
   } catch (error) {
@@ -806,16 +817,17 @@ export async function getMovies(
   type: MovieCategory,
   page: number,
 ): Promise<TmdbMovieListResponse | null> {
+  const lang = await resolveTmdbLanguage();
   switch (type) {
     case "popular":
-      return await movieDb.moviePopular({ language: "en-US", page });
+      return await movieDb.moviePopular({ language: lang, page });
     case "top-rated":
-      return await movieDb.movieTopRated({ language: "en-US", page });
+      return await movieDb.movieTopRated({ language: lang, page });
     case "now-playing":
-      return await movieDb.movieNowPlaying({ language: "en-US", page });
+      return await movieDb.movieNowPlaying({ language: lang, page });
     case "upcoming":
       return await movieDb.upcomingMovies({
-        language: "en-US",
+        language: lang,
         page,
         region: "US",
       });
@@ -842,7 +854,7 @@ export async function getMovies(
     case "director-fincher":
       return await fetchMoviesByPerson(7467, page, "Director"); // David Fincher
     default:
-      return await movieDb.moviePopular({ language: "en-US", page });
+      return await movieDb.moviePopular({ language: lang, page });
   }
 }
 
@@ -850,17 +862,18 @@ export async function getTVShows(
   type: TVShowCategory,
   page: number,
 ): Promise<TmdbTvListResponse | null> {
+  const lang = await resolveTmdbLanguage();
   switch (type) {
     case "popular":
-      return await movieDb.tvPopular({ language: "en-US", page });
+      return await movieDb.tvPopular({ language: lang, page });
     case "top-rated":
-      return await movieDb.tvTopRated({ language: "en-US", page });
+      return await movieDb.tvTopRated({ language: lang, page });
     case "on-the-air":
-      return await movieDb.tvOnTheAir({ language: "en-US", page });
+      return await movieDb.tvOnTheAir({ language: lang, page });
     case "airing-today":
-      return await movieDb.tvAiringToday({ language: "en-US", page });
+      return await movieDb.tvAiringToday({ language: lang, page });
     default:
-      return await movieDb.tvPopular({ language: "en-US", page });
+      return await movieDb.tvPopular({ language: lang, page });
   }
 }
 
@@ -1151,7 +1164,6 @@ export async function fetchMoviesByCompany(
     const params: Params = {
       with_companies: companyId.toString(),
       sort_by: "popularity.desc",
-      language: "en-US",
       include_adult: "false",
       page: page.toString(),
     };
@@ -1250,14 +1262,13 @@ async function getCategoryEndpoint(
   page: number = 1,
 ): Promise<string | null> {
   const baseParams = {
-    language: "en-US",
     include_adult: "false",
     page: page.toString(),
   };
 
-  const params =
-    type === "movie" ? { ...baseParams, region: "US" } : baseParams;
-  const paramString = new URLSearchParams(params).toString();
+  const params = type === "movie" ? { ...baseParams, region: "US" } : baseParams;
+  const lang = await resolveTmdbLanguage();
+  const paramString = new URLSearchParams({ ...params, language: lang }).toString();
 
   if (category === "popular") {
     return `${TMDB_BASE_URL}/${type}/popular?${paramString}`;

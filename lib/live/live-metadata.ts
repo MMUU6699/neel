@@ -13,13 +13,13 @@ import {
   OG_IMAGE_SIZE,
 } from "@/lib/seo/constants";
 
-const LIVE_DESCRIPTION = "Watch live TV channels and events on NyumatFlix.";
+const LIVE_DESCRIPTION = "Watch live TV channels and events on Index.";
 
 const buildLiveChannelDescription = (channel: LiveChannel) =>
-  `Watch ${channel.name} live on NyumatFlix. Stream ${channel.categoryName.toLowerCase()} channels for free.`;
+  `Watch ${channel.name} live on Index. Stream ${channel.categoryName.toLowerCase()} channels for free.`;
 
 export const buildDefaultLiveMetadata = (): Metadata => ({
-  title: "Live TV | NyumatFlix",
+  title: "Live TV | Index",
   description: LIVE_DESCRIPTION,
   keywords: [
     "live tv",
@@ -29,7 +29,7 @@ export const buildDefaultLiveMetadata = (): Metadata => ({
     "live sports",
     "live news",
     "free live tv",
-    "NyumatFlix",
+    "Index",
   ],
   alternates: {
     canonical: `${SITE_URL}/live`,
@@ -37,7 +37,7 @@ export const buildDefaultLiveMetadata = (): Metadata => ({
   openGraph: {
     type: "website",
     url: `${SITE_URL}/live`,
-    title: "Live TV | NyumatFlix",
+    title: "Live TV | Index",
     description: LIVE_DESCRIPTION,
     images: [
       {
@@ -45,14 +45,14 @@ export const buildDefaultLiveMetadata = (): Metadata => ({
         width: OG_IMAGE_SIZE.width,
         height: OG_IMAGE_SIZE.height,
         type: DEFAULT_OG_IMAGE_TYPE,
-        alt: "NyumatFlix Live TV",
+        alt: "Index Live TV",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: SITE_URL,
-    title: "Live TV | NyumatFlix",
+    title: "Live TV | Index",
     description: LIVE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
   },
@@ -60,14 +60,14 @@ export const buildDefaultLiveMetadata = (): Metadata => ({
 
 export const buildLiveChannelMetadataFromSlug = (slug: string): Metadata => {
   const channelName = formatChannelSlugForDisplay(slug);
-  const title = `${channelName} Live | NyumatFlix`;
-  const description = `Watch ${channelName} live on NyumatFlix.`;
+  const title = `${channelName} Live | Index`;
+  const description = `Watch ${channelName} live on Index.`;
   const shareUrl = buildLiveShareUrlFromSlug(slug);
 
   return {
     title,
     description,
-    keywords: [channelName, `${channelName} live`, "live tv", "NyumatFlix"],
+    keywords: [channelName, `${channelName} live`, "live tv", "Index"],
     alternates: {
       canonical: shareUrl,
     },
@@ -82,7 +82,7 @@ export const buildLiveChannelMetadataFromSlug = (slug: string): Metadata => {
           width: OG_IMAGE_SIZE.width,
           height: OG_IMAGE_SIZE.height,
           type: DEFAULT_OG_IMAGE_TYPE,
-          alt: `${channelName} on NyumatFlix`,
+          alt: `${channelName} on Index`,
         },
       ],
     },
@@ -97,7 +97,7 @@ export const buildLiveChannelMetadataFromSlug = (slug: string): Metadata => {
 };
 
 export const buildLiveChannelMetadata = (channel: LiveChannel): Metadata => {
-  const title = `${channel.name} Live | NyumatFlix`;
+  const title = `${channel.name} Live | Index`;
   const description = buildLiveChannelDescription(channel);
   const shareUrl = buildLiveChannelShareUrl(channel);
   const imageUrl = channel.logoUrl ?? DEFAULT_OG_IMAGE;
@@ -110,7 +110,7 @@ export const buildLiveChannelMetadata = (channel: LiveChannel): Metadata => {
       `${channel.name} live`,
       "live tv",
       channel.categoryName.toLowerCase(),
-      "NyumatFlix",
+      "Index",
     ],
     alternates: {
       canonical: shareUrl,
@@ -126,7 +126,7 @@ export const buildLiveChannelMetadata = (channel: LiveChannel): Metadata => {
           width: OG_IMAGE_SIZE.width,
           height: OG_IMAGE_SIZE.height,
           type: channel.logoUrl ? "image/png" : DEFAULT_OG_IMAGE_TYPE,
-          alt: `${channel.name} on NyumatFlix`,
+          alt: `${channel.name} on Index`,
         },
       ],
     },

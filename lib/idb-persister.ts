@@ -4,7 +4,7 @@ import type {
   Persister,
 } from "@tanstack/react-query-persist-client";
 
-const IDB_KEY = "nyumatflix-query-cache";
+const IDB_KEY = "index-query-cache";
 
 export function createIDBPersister(): Persister {
   return {

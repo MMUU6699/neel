@@ -9,15 +9,15 @@ export const requiredEnvVars = [
   "AUTH_URL",
   "DATABASE_URL",
 ];
-export const LOGGER_TITLE = "[Nyumatflix]";
+export const LOGGER_TITLE = "[Index]";
 
-export const SITE_URL = "https://nyumatflix.com";
-export const UMAMI_URL = "https://analytics.nyumatflix.com";
+export const SITE_URL = "https://REPLACE_WITH_YOUR_DOMAIN.com";
+export const UMAMI_URL = "https://analytics.REPLACE_WITH_YOUR_DOMAIN.com";
 export const UMAMI_WEBSITE_ID = "eb985e75-d6fe-42d3-8e24-0de58c4bf22c";
 export const UMAMI_CLOUD_WEBSITE_ID = "679411bf-5cd3-4f57-983d-956d67f033cc";
-export const SITE_NAME = "NyumatFlix";
+export const SITE_NAME = "Index";
 export const DEFAULT_DESCRIPTION =
-  "Nyumatflix is an open-source, no-cost, and ad-free movie and TV stream aggregator.";
+  "Index is an open-source, no-cost, and ad-free movie and TV stream aggregator.";
 export const SITE_TAGLINE = "Watch Movies and TV Shows";
 export const SITE_HERO_BANNER_PATH = "/movie-banner.webp";
 export const SITE_OG_HEADLINE = "Find where anything streams.";
@@ -25,8 +25,8 @@ export const SITE_OG_HEADLINE = "Find where anything streams.";
 export const USE_SHAKA_DASH = true;
 export const MAGIC_LINK_RESEND_FROM =
   process.env.NODE_ENV === "production"
-    ? "Nyumatflix <login@auth.nyumatflix.com>"
-    : process.env.RESEND_FROM_EMAIL || "Nyumatflix <delivered@resend.dev>";
+    ? "Index <login@auth.REPLACE_WITH_YOUR_DOMAIN.com>"
+    : process.env.RESEND_FROM_EMAIL || "Index <delivered@resend.dev>";
 export const MAGIC_LINK_RESEND_SUBJECT = "Here's your magic link to sign in";
 export const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 

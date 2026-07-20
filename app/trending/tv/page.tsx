@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildCatalogMetadata({
     title: pages.trending.tv.title,
     description:
-      "See what TV shows are trending today and this week on NyumatFlix.",
+      "See what TV shows are trending today and this week on Index.",
     path: pages.trending.tv.link,
   });
 }

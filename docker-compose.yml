@@ -1,7 +1,7 @@
 services:
   flaresolverr:
     image: flaresolverr/flaresolverr:latest
-    container_name: nyumatflix-flaresolverr
+    container_name: index-flaresolverr
     restart: unless-stopped
     environment:
       LOG_LEVEL: ${FLARESOLVERR_LOG_LEVEL:-info}
@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nyumatflix:local
+    image: index:local
     restart: unless-stopped
     init: true
     mem_limit: 3g

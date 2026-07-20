@@ -1,7 +1,7 @@
 import type { PlaybackProgressKey } from "@/lib/playback/progress-storage";
 
 export const TRACK_PREFERENCES_STORAGE_KEY =
-  "nyumatflix.playback.track-preferences";
+  "index.playback.track-preferences";
 
 export type SubtitleTrackPreference = string | "off";
 

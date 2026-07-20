@@ -15,6 +15,22 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { BackgroundImageProps, HeroProps } from "./types";
 
+const getClientLocale = (): string => {
+  try {
+    if (typeof document !== "undefined") {
+      const match = document.cookie
+        .split(";")
+        .map((s) => s.trim())
+        .find((s) => s.startsWith("NEXT_LOCALE="));
+      if (match) return match.split("=")[1];
+    }
+    if (typeof navigator !== "undefined") return (navigator.language || "en").split("-")[0];
+  } catch (e) {
+    /* ignore */
+  }
+  return "en";
+};
+
 interface HeroDetailsProps {
   formattedDate: string;
   runtime?: number;
@@ -66,7 +82,7 @@ export function HeroDetails({
       {isWatch && showBudget && (
         <div className="flex items-center">
           <DollarSign className="mr-2" size={16} />
-          <span>${budget?.toLocaleString()}</span>
+          <span>${budget?.toLocaleString(getClientLocale(), { numberingSystem: "latn" })}</span>
         </div>
       )}
 

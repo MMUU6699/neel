@@ -29,10 +29,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: `${collection.name} Collection`,
     description: collection.overview
       ? truncateDescription(collection.overview)
-      : `Browse the ${collection.name} movie collection on NyumatFlix.`,
+      : `Browse the ${collection.name} movie collection on Index.`,
     path: `/collection/${id}`,
     includeDefaultImage: false,
-    imageAlt: `${collection.name} on NyumatFlix`,
+    imageAlt: `${collection.name} on Index`,
   });
 }
 
@@ -51,7 +51,7 @@ export default async function CollectionPage(props: Props) {
     "@type": "CollectionPage",
     name: collection.name,
     description: collection.overview,
-    url: `https://nyumatflix.com/collection/${id}`,
+    url: `https://REPLACE_WITH_YOUR_DOMAIN.com/collection/${id}`,
     numberOfItems: collection.parts.length,
   };
 

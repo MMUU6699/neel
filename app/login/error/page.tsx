@@ -27,7 +27,7 @@ const authErrorCopy: Record<string, AuthErrorCopy> = {
     description:
       "Magic links can only be used once and expire after a short time.",
     detail:
-      "Request a fresh link using the same email address, then open the newest email from NyumatFlix.",
+      "Request a fresh link using the same email address, then open the newest email from Index.",
   },
   AccessDenied: {
     title: "Access denied",
@@ -139,7 +139,7 @@ const authErrorCopy: Record<string, AuthErrorCopy> = {
   InvalidCallbackUrl: {
     title: "Return link is invalid",
     description: "The sign-in request included a return URL we cannot use.",
-    detail: "Start again from NyumatFlix instead of an old or copied link.",
+    detail: "Start again from Index instead of an old or copied link.",
   },
   InvalidEndpoints: {
     title: "Provider is misconfigured",
@@ -216,7 +216,7 @@ const authErrorCopy: Record<string, AuthErrorCopy> = {
   UntrustedHost: {
     title: "Host is not trusted",
     description: "The sign-in request came through an untrusted host.",
-    detail: "Open NyumatFlix from its normal address and try again.",
+    detail: "Open Index from its normal address and try again.",
   },
   MissingCSRF: {
     title: "Security check expired",
@@ -252,33 +252,33 @@ const authErrorCopy: Record<string, AuthErrorCopy> = {
 };
 
 export const metadata: Metadata = {
-  title: "Sign In Error | NyumatFlix",
-  description: "There was a problem signing in to NyumatFlix.",
-  keywords: ["NyumatFlix", "Sign In Error", "Authentication", "Magic Link"],
+  title: "Sign In Error | Index",
+  description: "There was a problem signing in to Index.",
+  keywords: ["Index", "Sign In Error", "Authentication", "Magic Link"],
   openGraph: {
     type: "website",
     url: `${SITE_URL}/login/error`,
-    title: "Sign In Error | NyumatFlix",
-    description: "There was a problem signing in to NyumatFlix.",
+    title: "Sign In Error | Index",
+    description: "There was a problem signing in to Index.",
     images: [
       {
         url: DEFAULT_OG_IMAGE,
         width: OG_IMAGE_SIZE.width,
         height: OG_IMAGE_SIZE.height,
         type: DEFAULT_OG_IMAGE_TYPE,
-        alt: "Sign In Error | NyumatFlix",
+        alt: "Sign In Error | Index",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: `${SITE_URL}/login/error`,
-    title: "Sign In Error | NyumatFlix",
-    description: "There was a problem signing in to NyumatFlix.",
+    title: "Sign In Error | Index",
+    description: "There was a problem signing in to Index.",
     images: [
       {
         url: DEFAULT_OG_IMAGE,
-        alt: "Sign In Error | NyumatFlix",
+        alt: "Sign In Error | Index",
       },
     ],
   },

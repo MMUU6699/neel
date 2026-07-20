@@ -141,19 +141,27 @@ const toSlimSeasonDetails = (raw: RawSeasonDetails): SeasonDetails | null => {
 
 export async function fetchTVShowDetails(id: string): Promise<TvShowDetails> {
   try {
-    const baseUrl = `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`;
+    const baseUrl = `https://api.themoviedb.org/3/tv/${id}`;
+    const url = new URL(baseUrl);
+    try {
+      const { getLocale } = await import("@/i18n/request");
+      const locale = await getLocale();
+      url.searchParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch (e) {
+      url.searchParams.set("language", "en");
+    }
 
     const [res1, res2, res3] = await Promise.all([
       fetch(
-        `${baseUrl}&append_to_response=content_ratings,keywords,external_ids`,
+        `${url.toString()}&append_to_response=content_ratings,keywords,external_ids`,
         tvDetailFetchInit(id, "content_ratings,keywords,external_ids"),
       ),
       fetch(
-        `${baseUrl}&append_to_response=videos,images`,
+        `${url.toString()}&append_to_response=videos,images`,
         tvDetailFetchInit(id, "videos,images"),
       ),
       fetch(
-        `${baseUrl}&append_to_response=recommendations,similar,reviews`,
+        `${url.toString()}&append_to_response=recommendations,similar,reviews`,
         tvDetailFetchInit(id, "recommendations,similar,reviews"),
       ),
     ]);
@@ -198,10 +206,15 @@ export async function fetchSeasonDetailsServer(
   }
 
   try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/tv/${tvId}/season/${seasonNumber}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
-      tvSeasonFetchInit(tvId, seasonNumber),
-    );
+    const seasonUrl = new URL(`https://api.themoviedb.org/3/tv/${tvId}/season/${seasonNumber}`);
+    try {
+      const { getLocale } = await import("@/i18n/request");
+      const locale = await getLocale();
+      seasonUrl.searchParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch (e) {
+      seasonUrl.searchParams.set("language", "en");
+    }
+    const response = await fetch(seasonUrl.toString(), tvSeasonFetchInit(tvId, seasonNumber));
     if (!response.ok) {
       throw new Error(`Failed to fetch season details: ${response.status}`);
     }

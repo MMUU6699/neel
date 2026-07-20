@@ -92,26 +92,31 @@ const runtime = (minutes: number) => {
   return `${hours ? hours + "h" : ""} ${mins}min`;
 };
 
-const date = (date: string) => {
-  return new Date(date).toLocaleDateString("en-US", {
+const date = (date: string, locale?: string) => {
+  const resolvedLocale =
+    locale ?? (typeof navigator !== "undefined" ? (navigator.language || "en").split("-")[0] : "en");
+  return new Date(date).toLocaleDateString(resolvedLocale, {
     dateStyle: "long",
+    numberingSystem: "latn",
   });
 };
 
 const year = (date: string) => new Date(date).getFullYear();
 
-const currency = (x: number) => {
-  const formatter = new Intl.NumberFormat("en-US", {
+const currency = (x: number, locale?: string) => {
+  const resolvedLocale = locale ?? (typeof navigator !== "undefined" ? (navigator.language || "en").split("-")[0] : "en");
+  const formatter = new Intl.NumberFormat(resolvedLocale, {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 0,
+    numberingSystem: "latn",
   });
   return formatter.format(x);
 };
 
-const country = (code: string) => {
+const country = (code: string, locale: string = "en") => {
   try {
-    return new Intl.DisplayNames(["en"], { type: "language" }).of(code) ?? code;
+    return new Intl.DisplayNames([locale], { type: "language" }).of(code) ?? code;
   } catch {
     return code;
   }

@@ -1,8 +1,8 @@
-const SNAPSHOT_PREFIX = "nyumatflix:route-snapshot:";
-const ORIGIN_PREFIX = "nyumatflix:route-origin:";
-const PENDING_NAVIGATION_KEY = "nyumatflix:pending-route-navigation";
-const PENDING_RESTORE_KEY = "nyumatflix:pending-route-restore";
-const HISTORY_ORIGIN_KEY = "__nyumatflixRouteOrigin";
+const SNAPSHOT_PREFIX = "index:route-snapshot:";
+const ORIGIN_PREFIX = "index:route-origin:";
+const PENDING_NAVIGATION_KEY = "index:pending-route-navigation";
+const PENDING_RESTORE_KEY = "index:pending-route-restore";
+const HISTORY_ORIGIN_KEY = "__indexRouteOrigin";
 
 type PendingRestoreListener = (active: boolean) => void;
 const pendingRestoreListeners = new Set<PendingRestoreListener>();

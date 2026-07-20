@@ -59,8 +59,16 @@ export async function GET(request: Request) {
       query: query.trim(),
       page: page,
       include_adult: "false",
-      language: "en-US",
     });
+
+    // Resolve locale for this request and set language
+    try {
+      const { getLocale } = await import("@/i18n/request");
+      const locale = await getLocale();
+      commonParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch (e) {
+      commonParams.set("language", "en");
+    }
 
     const [movieResponse, tvResponse] = await Promise.all([
       fetch(`${baseUrl}/movie?${commonParams}`),

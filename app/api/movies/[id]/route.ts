@@ -1,4 +1,5 @@
 import { catalogCacheHeaders } from "@/lib/http-cache";
+import { getLocale } from "@/i18n/request";
 import { NextResponse } from "next/server";
 import { movieDb } from "@/lib/constants";
 
@@ -17,7 +18,9 @@ export async function GET(
   }
 
   try {
-    const movieDetails = await movieDb.movieInfo({ id });
+    const locale = await getLocale();
+    const language = locale === "ar" ? "ar" : "en-US";
+    const movieDetails = await movieDb.movieInfo({ id, language });
 
     if (!movieDetails) {
       return NextResponse.json({ error: "Movie not found" }, { status: 404 });

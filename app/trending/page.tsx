@@ -20,7 +20,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = buildCatalogMetadata({
   title: pages.trending.root.title,
   description:
-    "Explore trending movies, TV shows, and people updated throughout the day on NyumatFlix.",
+    "Explore trending movies, TV shows, and people updated throughout the day on Index.",
   path: pages.trending.root.link,
 });
 

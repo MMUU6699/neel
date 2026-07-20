@@ -56,7 +56,7 @@ export const getPopularMovieSeoExamples = async (): Promise<
         label,
         title: metadataTitle(metadata),
         description:
-          metadataDescription(metadata) || `Watch ${label} on NyumatFlix.`,
+          metadataDescription(metadata) || `Watch ${label} on Index.`,
       };
     }),
   );
@@ -82,7 +82,7 @@ export const getPopularTvSeoExamples = async (): Promise<
         title: metadataTitle(metadata),
         description:
           metadataDescription(metadata) ||
-          truncateDescription(`Watch ${label} on NyumatFlix.`),
+          truncateDescription(`Watch ${label} on Index.`),
       };
     }),
   );

@@ -1,12 +1,12 @@
 [Unit]
-Description=Restart NyumatFlix when its Docker health check fails
+Description=Restart Index when its Docker health check fails
 After=docker.service
 Requires=docker.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/sbin/nyumatflix-watchdog
-RuntimeDirectory=nyumatflix-watchdog
+ExecStart=/usr/local/sbin/index-watchdog
+RuntimeDirectory=index-watchdog
 RuntimeDirectoryMode=0750
 NoNewPrivileges=yes
 PrivateTmp=yes

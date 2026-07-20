@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "movies": "أفلام",
+    "tvShows": "مسلسلات",
+    "anime": "أنمي",
+    "search": "بحث",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "watchlist": "قائمة المتابعة",
+    "browse": "استعراض",
+    "live": "مباشر",
+    "trending": "رائج",
+    "people": "أشخاص"
+  },
+  "footer": {
+    "explore": "استكشاف",
+    "legal": "قانوني",
+    "about": "حول",
+    "copyright": "مصنوع بعناية من أجلكم ومن أجلي.",
+    "indexHomepage": "الصفحة الرئيسية لـ Index"
+  },
+  "movieDetail": {
+    "overview": "نبذة",
+    "cast": "طاقم العمل",
+    "recommendations": "قد يعجبك",
+    "budget": "الميزانية",
+    "revenue": "الإيرادات",
+    "votes": "تصويت"
+  },
+  "search": {
+    "placeholder": "ابحث عن أفلام أو مسلسلات أو أشخاص",
+    "noResults": "لم يتم العثور على نتائج"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور"
+  },
+  "watchlist": {
+    "empty": "قائمة المتابعة فارغة",
+    "remove": "إزالة"
+  },
+  "errors": {
+    "pageNotFound": "الصفحة غير موجودة",
+    "pageDoesNotExist": "لقد وصلت إلى صفحة غير موجودة.",
+    "goBack": "العودة إلى الصفحة الرئيسية",
+    "invalidLocale": "لغة غير صالحة"
+  },
+  "common": {
+    "language": "اللغة",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "loading": "جارٍ التحميل...",
+    "play": "تشغيل",
+    "playTrailer": "تشغيل المقطع الدعائي",
+    "close": "إغلاق",
+    "viewMore": "عرض المزيد"
+  },
+  "settings": {
+    "language": "اللغة",
+    "selectLanguage": "اختر اللغة"
+  }
+}

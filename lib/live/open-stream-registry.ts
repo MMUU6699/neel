@@ -8,7 +8,7 @@ type RegistryState = {
   allowedHosts: Set<string>;
 };
 
-const REGISTRY_KEY = "__nyumatflixOpenStreamRegistry";
+const REGISTRY_KEY = "__indexOpenStreamRegistry";
 
 const getRegistryState = (): RegistryState => {
   const globalStore = globalThis as typeof globalThis & {

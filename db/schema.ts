@@ -20,7 +20,7 @@ if (!connectionString) {
 }
 
 const pool = postgres(
-  connectionString || "postgres://postgres:postgres@localhost:5432/nyumatflix",
+  connectionString || "postgres://postgres:postgres@localhost:5432/index",
   { max: 1 },
 );
 
@@ -132,3 +132,12 @@ export const watchlist = pgTable(
   },
   (table) => [unique().on(table.userId, table.contentId, table.mediaType)],
 );
+
+export const deviceCodes = pgTable("deviceCode", {
+  deviceCode: text("deviceCode").primaryKey(),
+  userCode: text("userCode").notNull().unique(),
+  userId: text("userId").references(() => users.id, { onDelete: "cascade" }),
+  expiresAt: timestamp("expiresAt", { mode: "date" }).notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
+});
+

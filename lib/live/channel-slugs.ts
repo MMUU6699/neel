@@ -1,6 +1,6 @@
 import type { LiveChannel } from "@/lib/live/types";
 
-const LIVE_BASE_URL = "https://nyumatflix.com/live";
+const LIVE_BASE_URL = "https://REPLACE_WITH_YOUR_DOMAIN.com/live";
 
 export const slugifyChannelName = (name: string) =>
   name.toLowerCase().replace(/[^a-z0-9]+/g, "");

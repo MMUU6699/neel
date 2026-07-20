@@ -2,11 +2,11 @@ import { StaticHero } from "@/components/hero/hero-static";
 import { ContentContainer } from "@/components/layout/content-container";
 import { LegalPage } from "@/components/layout/legal-page";
 
-const githubUrl = "https://github.com/Nyumat/NyumatFlix";
+const githubUrl = "https://REPLACE_WITH_YOUR_DOMAIN.com";
 
 export const metadata = {
-  title: "Cookie Policy - NyumatFlix",
-  description: "Cookie Policy for NyumatFlix",
+  title: "Cookie Policy - Index",
+  description: "Cookie Policy for Index",
 };
 
 export default function CookiePolicyPage() {
@@ -22,10 +22,10 @@ export default function CookiePolicyPage() {
                 How Cookies Are Used
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                NyumatFlix uses a small number of cookies and browser storage so
+                Index uses a small number of cookies and browser storage so
                 the app works, signed-in users stay signed in, and we can see
                 basic aggregate usage. We do not use ad-tracking cookies or
-                cross-site marketing pixels on NyumatFlix pages.
+                cross-site marketing pixels on Index pages.
               </p>
             </section>
 
@@ -59,7 +59,7 @@ export default function CookiePolicyPage() {
                 What We Do Not Do
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                NyumatFlix does not run third-party ad networks, remarketing
+                Index does not run third-party ad networks, remarketing
                 pixels, social media tracking widgets, or cookies for selling
                 ads based on what you do here.
               </p>
@@ -71,7 +71,7 @@ export default function CookiePolicyPage() {
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 External watch links, embedded players, providers, and other
-                sites are separate from NyumatFlix. They may use their own
+                sites are separate from Index. They may use their own
                 cookies, ads, analytics, or tracking. Those choices belong to
                 those sites, not us.
               </p>

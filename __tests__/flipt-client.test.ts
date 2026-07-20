@@ -79,7 +79,7 @@ describe("Flipt v2 client", () => {
             ...current,
             payload: {
               ...current.payload,
-              metadata: { owner: "nyumatflix" },
+              metadata: { owner: "index" },
             },
           }
         : current;
@@ -112,7 +112,7 @@ describe("Flipt v2 client", () => {
         "@type": "flipt.core.Flag",
         key: toFliptStorageKey(changed.key),
         enabled: !changed.defaultValue,
-        metadata: { owner: "nyumatflix" },
+        metadata: { owner: "index" },
       },
     });
   });

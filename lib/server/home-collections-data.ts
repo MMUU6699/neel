@@ -25,7 +25,7 @@ const normalizeCollection = (
 ): HomeCollection | null => {
   if (!collection) return null;
 
-  const parts = filterReleasedMovies(collection.parts);
+  const parts = filterReleasedMovies(collection.parts ?? []);
   if (parts.length < MIN_COLLECTION_PARTS) return null;
 
   return { ...collection, parts };

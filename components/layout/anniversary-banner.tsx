@@ -7,10 +7,10 @@ import { ChevronRight, Film, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const OLD_ANNOUNCEMENT_BANNER_STORAGE_KEY = "nyumatflix-announcement-banner-v1";
+const OLD_ANNOUNCEMENT_BANNER_STORAGE_KEY = "index-announcement-banner-v1";
 const PREVIOUS_ANNOUNCEMENT_BANNER_STORAGE_KEY =
-  "nyumatflix-announcement-banner-v2";
-const ANNOUNCEMENT_BANNER_STORAGE_KEY = "nyumatflix-announcement-banner-v3";
+  "index-announcement-banner-v2";
+const ANNOUNCEMENT_BANNER_STORAGE_KEY = "index-announcement-banner-v3";
 
 interface AnniversaryBannerProps {
   className?: string;

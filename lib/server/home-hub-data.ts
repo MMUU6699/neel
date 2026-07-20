@@ -47,7 +47,7 @@ export const getHomeTrendingMovies = cache(
       sort_by: "popularity.desc",
     });
 
-    return filterReleasedMovies(moviesRaw).map((movie) => ({
+    return filterReleasedMovies(moviesRaw ?? []).map((movie) => ({
       ...movie,
       media_type: "movie" as const,
     }));
@@ -94,7 +94,7 @@ export const getHomeTrendingTv = cache(async (): Promise<HomeTvItem[]> => {
     sort_by: "popularity.desc",
   });
 
-  return filterReleasedTvShows(tvShowsRaw).map((show) => ({
+  return filterReleasedTvShows(tvShowsRaw ?? []).map((show) => ({
     ...show,
     media_type: "tv" as const,
   }));

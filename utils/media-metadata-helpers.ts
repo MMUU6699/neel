@@ -53,7 +53,7 @@ export async function generateMediaMetadata({
   const description = buildMediaDescription({
     tagline,
     overview: media.overview,
-    fallback: `Watch ${title} on NyumatFlix`,
+    fallback: `Watch ${title} on Index`,
   });
   const dateField = getMediaDate(media, mediaType);
   const year = dateField ? new Date(dateField).getFullYear() : "";
@@ -66,7 +66,7 @@ export async function generateMediaMetadata({
     description,
     path,
     ogType: "website",
-    imageAlt: `${titleWithYear} on NyumatFlix`,
+    imageAlt: `${titleWithYear} on Index`,
     includeDefaultImage: false,
   });
 }

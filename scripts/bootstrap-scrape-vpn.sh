@@ -85,7 +85,7 @@ sync_prod_env() {
   local tmp_prod tmp_gluetun
   tmp_prod="$(mktemp)"
   tmp_gluetun="$(mktemp)"
-  scp -q "${SSH_HOST}:~/apps/nyumatflix/.env" "$tmp_prod"
+  scp -q "${SSH_HOST}:~/apps/index/.env" "$tmp_prod"
   scp -q "${SSH_HOST}:~/apps/gluetun/.env" "$tmp_gluetun"
 
   ensure_vpn_secrets

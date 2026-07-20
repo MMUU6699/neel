@@ -11,7 +11,7 @@ type AnimePageItem = MediaItem & {
 const isExternalHref = (href: string) =>
   /^https?:\/\//i.test(href) || href.includes("anilist.co");
 
-/** Keep anime hub/grid links on NyumatFlix — never outbound to AniList. */
+/** Keep anime hub/grid links on Index — never outbound to AniList. */
 export const withAnimePageHref = (item: MediaItem): MediaItem => {
   const animeItem = item as AnimePageItem;
 
@@ -24,7 +24,7 @@ export const withAnimePageHref = (item: MediaItem): MediaItem => {
       return href;
     }
 
-    const url = new URL(href, "https://nyumatflix.local");
+    const url = new URL(href, "https://index.local");
     if (!url.searchParams.has("anilistId")) {
       url.searchParams.set("anilistId", String(animeItem.sourceAnilistId));
     }

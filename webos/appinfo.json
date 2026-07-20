@@ -1,0 +1,13 @@
+{
+  "id": "com.nyumatflix.tv",
+  "version": "1.0.0",
+  "vendor": "NyumatFlix",
+  "type": "web",
+  "main": "index.html",
+  "title": "NyumatFlix",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "resolution": "1920x1080",
+  "appDescription": "Watch Movies and TV Shows",
+  "transparent": false
+}

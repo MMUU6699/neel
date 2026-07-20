@@ -75,7 +75,7 @@ export function FfsDashboard({ initialFlags }: FfsDashboardProps) {
             Feature flags
           </p>
           <h1 className="text-2xl font-semibold text-white">
-            NyumatFlix admin
+            Index admin
           </h1>
           <p className="text-sm text-white/55">
             Global toggles apply to all users within ~30s (flag cache TTL).

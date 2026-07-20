@@ -24,7 +24,7 @@ export default function AdFreePage() {
               <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
                 That said, we&apos;re now ad-free.{" "}
                 <Link
-                  href="https://nyuma.dev/b/downloader#nyumatflix"
+                  href="https://nyuma.dev/b/downloader#index"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-foreground underline underline-offset-4 hover:text-primary"
@@ -38,7 +38,7 @@ export default function AdFreePage() {
               <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
                 but remember fam, if it needs fixing, we're{" "}
                 <Link
-                  href="https://github.com/nyumat/nyumatflix"
+                  href="https://REPLACE_WITH_YOUR_DOMAIN.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-foreground underline underline-offset-4 hover:text-primary"

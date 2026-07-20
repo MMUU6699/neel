@@ -76,7 +76,7 @@ export async function generateMetadata({
     title,
     description:
       description ??
-      "Browse popular actors, directors, and creators on NyumatFlix.",
+      "Browse popular actors, directors, and creators on Index.",
     path: pages.people.popular.link,
   });
 }

@@ -22,9 +22,26 @@ const formatEventTime = (value: string | null) => {
     return "Live";
   }
 
-  return new Intl.DateTimeFormat(undefined, {
+  const locale = (() => {
+    try {
+      if (typeof document !== "undefined") {
+        const match = document.cookie
+          .split(";")
+          .map((s) => s.trim())
+          .find((s) => s.startsWith("NEXT_LOCALE="));
+        if (match) return match.split("=")[1];
+      }
+      if (typeof navigator !== "undefined") return (navigator.language || "en").split("-")[0];
+    } catch (e) {
+      /* ignore */
+    }
+    return "en";
+  })();
+
+  return new Intl.DateTimeFormat(locale, {
     hour: "numeric",
     minute: "2-digit",
+    numberingSystem: "latn",
   }).format(timestamp);
 };
 

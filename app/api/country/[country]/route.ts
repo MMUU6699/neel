@@ -34,7 +34,6 @@ export async function GET(
     const countryCode = params.country;
 
     const queryParams: Record<string, string> = {
-      language: "en-US",
       include_adult: "false",
       sort_by: sortBy,
     };

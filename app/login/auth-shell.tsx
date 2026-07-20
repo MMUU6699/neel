@@ -111,7 +111,7 @@ export function AuthShell({
           <Link
             href="/"
             className="mb-8 inline-flex items-center gap-3 text-white"
-            aria-label="NyumatFlix home"
+            aria-label="Index home"
           >
             <span className="flex size-12 items-center justify-center rounded-2xl border border-white/12 bg-white/8 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-md">
               <Image
@@ -123,7 +123,7 @@ export function AuthShell({
               />
             </span>
             <span className="text-lg font-semibold tracking-tight">
-              NyumatFlix
+              Index
             </span>
           </Link>
 
@@ -145,7 +145,7 @@ export function AuthShell({
             <Link
               href="/"
               className="inline-flex items-center gap-3"
-              aria-label="NyumatFlix home"
+              aria-label="Index home"
             >
               <span className="flex size-12 items-center justify-center rounded-2xl border border-white/12 bg-white/8 backdrop-blur-md">
                 <Image
@@ -157,7 +157,7 @@ export function AuthShell({
                 />
               </span>
               <span className="text-lg font-semibold tracking-tight">
-                NyumatFlix
+                Index
               </span>
             </Link>
           </div>

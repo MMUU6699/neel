@@ -4,17 +4,17 @@ export { availableParams, pageLimit } from "@/config/catalog";
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "NyumatFlix",
+  name: "Index",
   description:
-    "Nyumatflix is an open-source, no-cost, and ad-free movie and TV stream aggregator.",
+    "Index is an open-source, no-cost, and ad-free movie and TV stream aggregator.",
   mainNav: [],
   links: {
-    github: "https://github.com/Nyumat/NyumatFlix",
+    github: "https://REPLACE_WITH_YOUR_DOMAIN.com",
     tmdb: "https://www.themoviedb.org",
   },
   author: {
-    name: "NyumatFlix",
-    web: "https://nyumatflix.com",
+    name: "Index",
+    web: "https://REPLACE_WITH_YOUR_DOMAIN.com",
   },
 } as const;
 

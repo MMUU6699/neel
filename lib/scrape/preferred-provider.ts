@@ -1,5 +1,5 @@
 export const PREFERRED_SCRAPE_PROVIDERS_STORAGE_KEY =
-  "nyumatflix.scrape.preferred-providers";
+  "index.scrape.preferred-providers";
 
 type PreferredProviderEntry = {
   providerId: string;

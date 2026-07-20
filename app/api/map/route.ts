@@ -3,6 +3,7 @@ import {
   getSearchTitle,
   isAnime,
 } from "@/utils/anilist-helpers";
+import { getLocale } from "@/i18n/request";
 import { catalogCacheHeaders } from "@/lib/http-cache";
 import {
   buildUnknownEpisodeCountSegment,
@@ -192,9 +193,15 @@ async function fetchTmdbShow(showId: number): Promise<TmdbShow | null> {
     return cached as TmdbShow;
 
   try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/tv/${showId}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
-    );
+    const url = new URL(`https://api.themoviedb.org/3/tv/${showId}`);
+      try {
+      const locale = await getLocale();
+      url.searchParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch {
+      url.searchParams.set("language", "en");
+    }
+    url.searchParams.set("api_key", process.env.TMDB_API_KEY ?? "");
+    const response = await fetch(url.toString());
 
     if (!response.ok) {
       throw new Error(`TMDB API error: ${response.status}`);
@@ -225,10 +232,15 @@ async function fetchTmdbSeason(
     return cached as TmdbSeason;
 
   try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
-      { cache: "no-store" },
-    );
+    const seasonUrl = new URL(`https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}`);
+    try {
+      const locale = await getLocale();
+      seasonUrl.searchParams.set("language", locale === "ar" ? "ar" : "en");
+    } catch {
+      seasonUrl.searchParams.set("language", "en");
+    }
+    seasonUrl.searchParams.set("api_key", process.env.TMDB_API_KEY ?? "");
+    const response = await fetch(seasonUrl.toString(), { cache: "no-store" });
 
     if (!response.ok) {
       throw new Error(`TMDB API error: ${response.status}`);

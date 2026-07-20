@@ -3,14 +3,14 @@ import { ContentContainer } from "@/components/layout/content-container";
 import { LegalPage } from "@/components/layout/legal-page";
 
 const anilistUrl = "https://anilist.co";
-const githubUrl = "https://github.com/Nyumat/NyumatFlix";
+const githubUrl = "https://REPLACE_WITH_YOUR_DOMAIN.com";
 const resendUrl = "https://resend.com";
 const tmdbUrl = "https://www.themoviedb.org";
 const umamiUrl = "https://umami.is";
 
 export const metadata = {
-  title: "Privacy Policy - NyumatFlix",
-  description: "Privacy Policy for NyumatFlix",
+  title: "Privacy Policy - Index",
+  description: "Privacy Policy for Index",
 };
 
 export default function PrivacyPage() {
@@ -26,11 +26,11 @@ export default function PrivacyPage() {
                 What We Collect
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                NyumatFlix keeps data collection pretty minimal. You can browse
+                Index keeps data collection pretty minimal. You can browse
                 without an account. If you sign in, we store the account,
                 watchlist, and progress data needed to make those features work.
                 We do not sell personal data, and we do not run ad tracking on
-                NyumatFlix pages.
+                Index pages.
               </p>
             </section>
 
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
                 Outside Services
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                NyumatFlix relies on a few outside services:
+                Index relies on a few outside services:
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li>

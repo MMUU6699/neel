@@ -29,9 +29,208 @@ import { Episode, SeasonDetails, TvShowDetails } from "@/lib/domain/typings";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowDownAZ, ArrowUpZA, Search, Tv } from "lucide-react";
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { tmdbImage } from "@/tmdb/utils";
+import { useTvDetection } from "@/hooks/use-tv-detection";
+
+const getClientLocale = (): string => {
+  try {
+    if (typeof document !== "undefined") {
+      const match = document.cookie
+        .split(";")
+        .map((s) => s.trim())
+        .find((s) => s.startsWith("NEXT_LOCALE="));
+      if (match) return match.split("=")[1];
+    }
+    if (typeof navigator !== "undefined") return (navigator.language || "en").split("-")[0];
+  } catch (e) {
+    /* ignore */
+  }
+  return "en";
+};
+
+type FocusableEpisodeButtonProps = {
+  episode: Episode;
+  epSeason: number;
+  active: boolean;
+  badgeEpisodeNumber: number;
+  labelSeasonNumber: number;
+  searchActive: boolean;
+  useAnimeSeasonGroups: boolean;
+  selectedAnimeSegment: number;
+  selectedSeason: number;
+  onClick: () => void;
+  className?: string;
+};
+
+function FocusableEpisodeButton({
+  episode,
+  epSeason,
+  active,
+  badgeEpisodeNumber,
+  labelSeasonNumber,
+  searchActive,
+  useAnimeSeasonGroups,
+  selectedAnimeSegment,
+  selectedSeason,
+  onClick,
+  className,
+}: FocusableEpisodeButtonProps) {
+  const isTv = useTvDetection();
+  const ref = useRef<HTMLButtonElement>(null);
+
+  if (isTv) {
+    const { useFocusable } = require("@noriginmedia/norigin-spatial-navigation");
+    const focusable = useFocusable();
+    return (
+      <button
+        ref={(el) => {
+          ref.current = el;
+          if (focusable.ref) focusable.ref(el);
+        }}
+        type="button"
+        onClick={onClick}
+        aria-current={active ? "true" : undefined}
+        className={cn(
+          "group flex w-full gap-4 rounded-xl border p-3 text-left transition-colors sm:gap-5 sm:p-4",
+          "border-border/80 bg-card/35 hover:border-primary/35 hover:bg-card/70",
+          active && "border-primary/70 bg-primary/10 ring-1 ring-primary/25",
+          focusable.focused &&
+            "scale-[1.02] ring-4 ring-primary z-10 shadow-[0_0_15px_rgba(var(--primary),0.5)]",
+          className,
+        )}
+      >
+        <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-lg bg-muted ring-1 ring-border sm:h-24 sm:w-44">
+          {episode.still_path ? (
+            <Image
+              src={tmdbImage.url(episode.still_path, "w300")}
+              alt=""
+              width={300}
+              height={169}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <Tv className="size-5 text-muted-foreground" aria-hidden />
+            </div>
+          )}
+          <span className="absolute bottom-2 left-2 flex h-7 min-w-7 items-center justify-center rounded-md bg-background/85 px-2 text-sm font-semibold text-foreground ring-1 ring-border backdrop-blur">
+            {badgeEpisodeNumber}
+          </span>
+        </div>
+        <div className="min-w-0 flex-1 self-center">
+          {searchActive ||
+          (useAnimeSeasonGroups
+            ? labelSeasonNumber !== selectedAnimeSegment + 1
+            : epSeason !== selectedSeason) ? (
+            <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-primary">
+              Season {labelSeasonNumber}
+            </p>
+          ) : null}
+          <p
+            className={cn(
+              "line-clamp-2 text-base font-semibold leading-snug text-foreground sm:text-lg",
+              active && "text-primary",
+            )}
+          >
+            {episode.name}
+          </p>
+          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+            {episode.runtime ? <span>{episode.runtime} min</span> : null}
+            {episode.air_date ? (
+              <span>
+                {new Date(episode.air_date).toLocaleDateString(getClientLocale(), {
+                  timeZone: "UTC",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  numberingSystem: "latn",
+                })}
+              </span>
+            ) : null}
+          </div>
+          {episode.overview ? (
+            <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {episode.overview}
+            </p>
+          ) : null}
+        </div>
+      </button>
+    );
+  }
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      onClick={onClick}
+      aria-current={active ? "true" : undefined}
+      className={cn(
+        "group flex w-full gap-4 rounded-xl border p-3 text-left transition-colors sm:gap-5 sm:p-4",
+        "border-border/80 bg-card/35 hover:border-primary/35 hover:bg-card/70",
+        active && "border-primary/70 bg-primary/10 ring-1 ring-primary/25",
+        className,
+      )}
+    >
+      <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-lg bg-muted ring-1 ring-border sm:h-24 sm:w-44">
+        {episode.still_path ? (
+          <Image
+            src={tmdbImage.url(episode.still_path, "w300")}
+            alt=""
+            width={300}
+            height={169}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <Tv className="size-5 text-muted-foreground" aria-hidden />
+          </div>
+        )}
+        <span className="absolute bottom-2 left-2 flex h-7 min-w-7 items-center justify-center rounded-md bg-background/85 px-2 text-sm font-semibold text-foreground ring-1 ring-border backdrop-blur">
+          {badgeEpisodeNumber}
+        </span>
+      </div>
+      <div className="min-w-0 flex-1 self-center">
+        {searchActive ||
+        (useAnimeSeasonGroups
+          ? labelSeasonNumber !== selectedAnimeSegment + 1
+          : epSeason !== selectedSeason) ? (
+          <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-primary">
+            Season {labelSeasonNumber}
+          </p>
+        ) : null}
+        <p
+          className={cn(
+            "line-clamp-2 text-base font-semibold leading-snug text-foreground sm:text-lg",
+            active && "text-primary",
+          )}
+        >
+          {episode.name}
+        </p>
+        <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+          {episode.runtime ? <span>{episode.runtime} min</span> : null}
+          {episode.air_date ? (
+            <span>
+              {new Date(episode.air_date).toLocaleDateString(getClientLocale(), {
+                timeZone: "UTC",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                numberingSystem: "latn",
+              })}
+            </span>
+          ) : null}
+        </div>
+        {episode.overview ? (
+          <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {episode.overview}
+          </p>
+        ) : null}
+      </div>
+    </button>
+  );
+}
 
 export type HeroTvEpisodePanelProps = {
   tvId: string;
@@ -125,7 +324,7 @@ export function HeroTvEpisodePanel({
   ]);
 
   const selectedSeasonQuery = useQuery({
-    queryKey: ["nyumatflix", "media", "tv", tvId, "season", selectedSeason],
+    queryKey: ["index", "media", "tv", tvId, "season", selectedSeason],
     queryFn: () => fetchSeasonDetails(tvId, selectedSeason),
     enabled:
       isHydrated &&
@@ -135,7 +334,7 @@ export function HeroTvEpisodePanel({
   });
 
   const animeSeasonMapQuery = useQuery({
-    queryKey: ["nyumatflix", "anime-season-map", tvId, selectedSeason],
+    queryKey: ["index", "anime-season-map", tvId, selectedSeason],
     queryFn: async (): Promise<AnimeSeasonMap> => {
       const response = await fetch(
         `/api/map?tmdbShowId=${encodeURIComponent(tvId)}&tmdbSeason=${selectedSeason}&sourceAnilistId=${defaultAnilistId}`,
@@ -444,81 +643,19 @@ export function HeroTvEpisodePanel({
                 animeDisplay?.episodeNumber ?? episode.episode_number;
               const labelSeasonNumber = animeDisplay?.seasonNumber ?? epSeason;
               return (
-                <button
+                <FocusableEpisodeButton
                   key={`${epSeason}-${episode.id}`}
-                  type="button"
+                  episode={episode}
+                  epSeason={epSeason}
+                  badgeEpisodeNumber={badgeEpisodeNumber!}
+                  labelSeasonNumber={labelSeasonNumber!}
+                  searchActive={searchActive}
+                  useAnimeSeasonGroups={useAnimeSeasonGroups!}
+                  selectedAnimeSegment={selectedAnimeSegment}
+                  selectedSeason={selectedSeason}
+                  active={active}
                   onClick={() => handleEpisodeClick(episode, epSeason)}
-                  aria-current={active ? "true" : undefined}
-                  className={cn(
-                    "group flex w-full gap-4 rounded-xl border p-3 text-left transition-colors sm:gap-5 sm:p-4",
-                    "border-border/80 bg-card/35 hover:border-primary/35 hover:bg-card/70",
-                    active &&
-                      "border-primary/70 bg-primary/10 ring-1 ring-primary/25",
-                  )}
-                >
-                  <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-lg bg-muted ring-1 ring-border sm:h-24 sm:w-44">
-                    {episode.still_path ? (
-                      <Image
-                        src={tmdbImage.url(episode.still_path, "w300")}
-                        alt=""
-                        width={300}
-                        height={169}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center">
-                        <Tv
-                          className="size-5 text-muted-foreground"
-                          aria-hidden
-                        />
-                      </div>
-                    )}
-                    <span className="absolute bottom-2 left-2 flex h-7 min-w-7 items-center justify-center rounded-md bg-background/85 px-2 text-sm font-semibold text-foreground ring-1 ring-border backdrop-blur">
-                      {badgeEpisodeNumber}
-                    </span>
-                  </div>
-                  <div className="min-w-0 flex-1 self-center">
-                    {searchActive ||
-                    (useAnimeSeasonGroups
-                      ? labelSeasonNumber !== selectedAnimeSegment + 1
-                      : epSeason !== selectedSeason) ? (
-                      <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-primary">
-                        Season {labelSeasonNumber}
-                      </p>
-                    ) : null}
-                    <p
-                      className={cn(
-                        "line-clamp-2 text-base font-semibold leading-snug text-foreground sm:text-lg",
-                        active && "text-primary",
-                      )}
-                    >
-                      {episode.name}
-                    </p>
-                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-                      {episode.runtime ? (
-                        <span>{episode.runtime} min</span>
-                      ) : null}
-                      {episode.air_date ? (
-                        <span>
-                          {new Date(episode.air_date).toLocaleDateString(
-                            "en-US",
-                            {
-                              timeZone: "UTC",
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                            },
-                          )}
-                        </span>
-                      ) : null}
-                    </div>
-                    {episode.overview ? (
-                      <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                        {episode.overview}
-                      </p>
-                    ) : null}
-                  </div>
-                </button>
+                />
               );
             })
           )}

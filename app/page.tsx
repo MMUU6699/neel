@@ -34,12 +34,12 @@ import { Suspense } from "react";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Home | NyumatFlix",
+  title: "Home | Index",
   description: siteConfig.description,
   openGraph: {
     type: "website",
     url: `${SITE_URL}/`,
-    title: "Home | NyumatFlix",
+    title: "Home | Index",
     description: siteConfig.description,
     images: [
       {
@@ -47,14 +47,14 @@ export const metadata: Metadata = {
         width: OG_IMAGE_SIZE.width,
         height: OG_IMAGE_SIZE.height,
         type: DEFAULT_OG_IMAGE_TYPE,
-        alt: "NyumatFlix",
+        alt: "Index",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: SITE_URL,
-    title: "Home | NyumatFlix",
+    title: "Home | Index",
     description: siteConfig.description,
     images: [DEFAULT_OG_IMAGE],
   },

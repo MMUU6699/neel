@@ -224,7 +224,7 @@ export const NavbarMobileNavigation = ({
                 />
               </Link>
               <SheetTitle className="text-left text-lg font-semibold tracking-tight text-white">
-                NyumatFlix
+                Index
               </SheetTitle>
             </div>
           </SheetHeader>

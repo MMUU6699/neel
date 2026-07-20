@@ -11,6 +11,7 @@ import {
   getPersonDetails,
 } from "@/lib/server/actions";
 import { cn, isDeceasedAsOfToday } from "@/lib/utils";
+import { getLocale } from "@/i18n/request";
 import { ContentContainer } from "@/components/layout/content-container";
 import { PageContainer } from "@/components/layout/page-container";
 import { StableBackground } from "@/components/layout/stable-background";
@@ -49,14 +50,14 @@ export async function generateMetadata(
 
     const description = person.biography
       ? truncateDescription(person.biography)
-      : `Explore movies and TV shows featuring ${person.name} on NyumatFlix.`;
+      : `Explore movies and TV shows featuring ${person.name} on Index.`;
 
     return buildPageMetadata({
       title: `${person.name} - Filmography`,
       description,
       path: `/person/${personId}`,
       ogType: "profile",
-      imageAlt: `${person.name} on NyumatFlix`,
+      imageAlt: `${person.name} on Index`,
       includeDefaultImage: false,
     });
   } catch {
@@ -79,6 +80,8 @@ export default async function PersonPage(props: PersonPageProps) {
   }
 
   const { deathday } = person;
+
+  const locale = await getLocale();
 
   const initialFilmographyResponse = await fetchPersonFilmography(personId, 1);
   let initialFilmography: MediaItem[] = [];
@@ -155,10 +158,10 @@ export default async function PersonPage(props: PersonPageProps) {
                         <Calendar size={18} className="text-gray-400" />
                         <span className="text-white">
                           Born:{" "}
-                          {new Date(person.birthday).toLocaleDateString(
-                            "en-US",
-                            { timeZone: "UTC" },
-                          )}
+                          {new Date(person.birthday).toLocaleDateString(locale, {
+                            timeZone: "UTC",
+                            numberingSystem: "latn",
+                          })}
                         </span>
                       </div>
                     )}
@@ -168,8 +171,9 @@ export default async function PersonPage(props: PersonPageProps) {
                         <Calendar size={18} className="text-gray-400" />
                         <span className="text-white">
                           Died:{" "}
-                          {new Date(deathday).toLocaleDateString("en-US", {
+                          {new Date(deathday).toLocaleDateString(locale, {
                             timeZone: "UTC",
+                            numberingSystem: "latn",
                           })}
                         </span>
                       </div>

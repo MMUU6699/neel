@@ -9,7 +9,7 @@ import {
 import { renderCachedOgImage } from "@/lib/seo/og-render";
 import { tmdb } from "@/tmdb/api";
 
-export const alt = "Person on NyumatFlix";
+export const alt = "Person on Index";
 export const size = OG_IMAGE_SIZE;
 export const contentType = ogImageContentType;
 export const revalidate = 86400; // OG_IMAGE_REVALIDATE_SECONDS

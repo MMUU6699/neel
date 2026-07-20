@@ -1,4 +1,4 @@
-# NyumatFlix app image. FlareSolverr runs as a separate sidecar — see docker-compose.yml.
+# Index app image. FlareSolverr runs as a separate sidecar — see docker-compose.yml.
 # On the box, always set FLARESOLVERR_URL=http://flaresolverr:8191/v1 at runtime.
 FROM oven/bun:1 AS deps
 WORKDIR /app
