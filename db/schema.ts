@@ -24,8 +24,6 @@ const pool = postgres(
   { max: 1 },
 );
 
-export const db = drizzle(pool);
-
 export const users = pgTable("user", {
   id: text("id")
     .primaryKey()
@@ -140,4 +138,17 @@ export const deviceCodes = pgTable("deviceCode", {
   expiresAt: timestamp("expiresAt", { mode: "date" }).notNull(),
   createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
 });
+
+// Schema object for Drizzle relational queries
+const schema = {
+  users,
+  accounts,
+  sessions,
+  verificationTokens,
+  authenticators,
+  watchlist,
+  deviceCodes,
+};
+
+export const db = drizzle(pool, { schema });
 
