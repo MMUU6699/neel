@@ -24,11 +24,19 @@ export class Logger {
 }
 
 export function validateEnv() {
-  for (const varName of requiredEnvVars) {
-    if (!process.env[varName]) {
-      throw new Error(`Missing required environment variable: ${varName}`);
-    }
+  const missing = requiredEnvVars.filter((varName) => !process.env[varName]);
+  if (missing.length === 0) {
+    return;
   }
+
+  const message = `Missing required environment variable${missing.length > 1 ? "s" : ""}: ${missing.join(", ")}`;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(message);
+  }
+
+  console.warn(
+    `⚠️ ${message}. Falling back to development defaults where possible.`,
+  );
 }
 
 export const logger = new Logger(LOGGER_TITLE);

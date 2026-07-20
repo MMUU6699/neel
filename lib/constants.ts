@@ -7,6 +7,8 @@ export const requiredEnvVars = [
   "AUTH_RESEND_KEY",
   "AUTH_SECRET",
   "AUTH_URL",
+  "NEXTAUTH_URL",
+  "APP_URL",
   "DATABASE_URL",
 ];
 export const LOGGER_TITLE = "[Index]";

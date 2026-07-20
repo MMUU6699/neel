@@ -21,7 +21,8 @@ export default function GlobalErrorPage({
       <body className="min-h-screen bg-background font-sans">
         <AppErrorFallback
           reset={reset}
-          message="A top-level app error occurred. Try again, or refresh if the page cannot recover."
+          title="Unexpected application error"
+          message="Something went wrong while loading the app. Please refresh the page or try again later."
         />
       </body>
     </html>

@@ -53,3 +53,6 @@ UI_GOAL.md
 
 # act local secrets
 .act.secrets
+
+# Local Netlify folder
+.netlify

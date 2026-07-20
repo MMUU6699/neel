@@ -14,13 +14,18 @@ import postgres from "postgres";
 const connectionString = process.env.DATABASE_URL;
 
 if (!connectionString) {
+  const message =
+    "DATABASE_URL is not configured. In production this is required for database access.";
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(message);
+  }
   console.warn(
-    "⚠️  DATABASE_URL is not set. Using dummy connection string for build.",
+    `⚠️ ${message} Falling back to local development default.`,
   );
 }
 
 const pool = postgres(
-  connectionString || "postgres://postgres:postgres@localhost:5432/index",
+  connectionString ?? "postgres://postgres:postgres@localhost:5432/index",
   { max: 1 },
 );
 

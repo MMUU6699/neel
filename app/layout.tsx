@@ -48,8 +48,15 @@ const manrope = Manrope({
   display: "swap",
 });
 
-if (process.env.NODE_ENV !== "production") {
-  validateEnv();
+validateEnv();
+
+async function getSafeSession() {
+  try {
+    return await auth();
+  } catch (error) {
+    console.error("[layout] auth() failed, rendering anonymous user:", error);
+    return null;
+  }
 }
 
 export const metadata: Metadata = {
@@ -105,7 +112,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const session = await auth();
+  const session = await getSafeSession();
   const host = (await headers()).get("host");
   const ffsAdminHost = isFfsHost(host);
   let siteFlags = getDefaultSiteFlags();
